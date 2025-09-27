@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ключевые правила безопасности</title>
+    <style>
+        :root {
+            --primary-color: #0078c9;
+            --secondary-color: #f4f4f4;
+            --text-color: #333;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 1.6em; 
+            margin-bottom: 0.5em;
+        }
+
+        /* --- Переключатель версий --- */
+        .version-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .version-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--primary-color);
+            background-color: #fff;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .version-btn:first-child {
+            border-top-left-radius: var(--border-radius);
+            border-bottom-left-radius: var(--border-radius);
+        }
+        .version-btn:last-child {
+            border-top-right-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
+            border-left: none;
+        }
+        .version-btn.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        /* --- Навигация --- */
+        .nav-header {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* --- ИЗМЕНЕНИЕ: Стили для десктопной навигации --- */
+        .desktop-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .desktop-nav-rules {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            overflow-x: auto; /* Для очень маленьких экранов до мобильного брейкпоинта */
+        }
+
+        .tabs-nav-button {
+            padding: 10px 12px; /* Уменьшил паддинг для компактности */
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            font-size: 1em;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: var(--border-radius);
+            margin: 0 2px; /* Уменьшил отступы */
+            flex-shrink: 0;
+        }
+
+        .nav-arrow-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        .tabs-nav-button.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+        
+        .tabs-nav-button:hover:not(.active) {
+            background-color: #eaf6ff;
+        }
+
+        .mobile-header {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .burger-menu-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .burger-menu-btn .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .mobile-nav-controls { display: flex; }
+
+        .mobile-nav-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .mobile-nav-menu {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .mobile-nav-menu .tabs-nav-button {
+            text-align: left;
+            width: 100%;
+            margin: 2px 0;
+            padding: 12px;
+        }
+        
+        /* --- Содержимое --- */
+        .version-container { display: none; }
+        .version-container.active { display: block; }
+
+        .tab-content {
+            display: none;
+            padding: 25px;
+            background-color: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-content.active { display: block; }
+        
+        .tab-content .sign-image {
+            max-width: 150px;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            float: left;
+            margin: 0 20px 10px 0;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+        }
+
+        .tab-content h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.5em;
+        }
+        
+        .tab-content ul { padding-left: 20px; }
+        .tab-content ul li { margin-bottom: 10px; }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 1024px) { /* Изменил брейкпоинт для более раннего переключения на мобильный вид */
+            h1 { font-size: 1.4em; }
+            .desktop-nav { display: none; }
+            .mobile-header { display: flex; }
+            .tab-content .sign-image {
+                float: none;
+                display: block;
+                margin: 0 auto 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Ключевые правила безопасности ПАО «Газпром»</h1>
+
+        <div class="version-switcher">
+            <button class="version-btn active" onclick="switchVersion('version1')">Сжатая версия</button>
+            <button class="version-btn" onclick="switchVersion('version2')">Полная версия</button>
+        </div>
+
+        <nav class="nav-header">
+            <!-- ИЗМЕНЕНИЕ: Обновленная структура десктопной навигации -->
+            <div class="desktop-nav">
+                <button class="nav-arrow-btn" onclick="navigateTabs(-1)">&#8592;</button>
+                <div class="desktop-nav-rules">
+                    <button class="tabs-nav-button active" onclick="openTab(event, 'rule1')">П1</button>
+                    <button class="tabs-nav-button" onclick="openTab(event, 'rule2')">П2</button>
+                    <button class="tabs-nav-button" onclick="openTab(event, 'rule3')">П3</button>
+                    <button class="tabs-nav-button" onclick="openTab(event, 'rule4')">П4</button>
+                    <button class="tabs-nav-button" onclick="openTab(event, 'rule5')">П5</button>
+                    <button class="tabs-nav-button" onclick="openTab(event, 'rule6')">П6</button>
+                    <button class="tabs-nav-button" onclick="openTab(event, 'rule7')">П7</button>
+                    <button class="tabs-nav-button" onclick="openTab(event, 'rule8')">П8</button>
+                    <button class="tabs-nav-button" onclick="openTab(event, 'rule9')">П9</button>
+                    <button class="tabs-nav-button" onclick="openTab(event, 'rule10')">П10</button>
+                    <button class="tabs-nav-button" onclick="openTab(event, 'rule11')">П11</button>
+                    <button class="tabs-nav-button" onclick="openTab(event, 'rule12')">П12</button>
+                </div>
+                <button class="nav-arrow-btn" onclick="navigateTabs(1)">&#8594;</button>
+            </div>
+            <div class="mobile-header">
+                <button class="burger-menu-btn" onclick="toggleBurgerMenu()">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <div class="mobile-nav-controls">
+                    <button class="mobile-nav-btn" onclick="navigateTabs(-1)">&#8592;</button>
+                    <button class="mobile-nav-btn" onclick="navigateTabs(1)">&#8594;</button>
+                </div>
+            </div>
+            <div class="mobile-nav-menu"></div>
+        </nav>
+
+        <!-- Версия 1: Сжатая -->
+        <div id="version1" class="version-container active">
+            <div id="v1-rule1" class="tab-content active clearfix">
+                <img src="https://i.ibb.co/L5w1q5Y/rule1-ppe.png" alt="Знак 'Используйте СИЗ'" class="sign-image">
+                <h3>Правило 1: Используйте средства индивидуальной защиты (СИЗ)</h3>
+                <p><strong>Работники должны:</strong> использовать СИЗ (спецодежда, спецобувь, каска, очки и т.п.) в соответствии с требованиями.</p>
+                <p><strong>Руководитель работ должен:</strong> перед началом работ проверить у всех наличие и исправность СИЗ и контролировать их применение.</p>
+            </div>
+            <div id="v1-rule2" class="tab-content clearfix">
+                <img src="https://i.ibb.co/v4S6dHy/rule2-seatbelt.png" alt="Знак 'Используйте ремни безопасности'" class="sign-image">
+                <h3>Правило 2: Используйте ремни безопасности</h3>
+                <p><strong>Водители обязаны:</strong> быть пристегнутым и не перевозить непристегнутых пассажиров. Перед выездом проверять ремни и не начинать движение, пока все не пристегнуты.</p>
+                <p><strong>Пассажиры обязаны:</strong> быть пристегнутыми при движении.</p>
+            </div>
+            <div id="v1-rule3" class="tab-content clearfix">
+                <img src="https://i.ibb.co/3s6K89Z/rule3-height.png" alt="Знак 'Работа на высоте'" class="sign-image">
+                <h3>Правило 3: Используйте средства защиты от падения при работе на высоте</h3>
+                <p><strong>Работники должны:</strong> уметь пользоваться СИЗ, лично осматривать их перед использованием и содержать в исправном состоянии. Выполнять только порученную работу.</p>
+            </div>
+            <div id="v1-rule4" class="tab-content clearfix">
+                 <!-- ИЗМЕНЕНИЕ: Пример пути к файлу на GitHub -->
+                <img src="https://i.ibb.co/d7z0d2G/info-sign.png" alt="Знак 'Наряд-допуск'" class="sign-image">
+                <h3>Правило 4: Работы повышенной опасности выполняйте по наряду-допуску</h3>
+                <p><strong>Работники должны:</strong> пройти инструктаж, знать и соблюдать требования наряда-допуска. Выполнять только порученную работу и сообщать руководителю об изменениях.</p>
+            </div>
+            <div id="v1-rule5" class="tab-content clearfix">
+                <img src="https://i.ibb.co/d7z0d2G/info-sign.png" alt="Знак 'Исправный инструмент'" class="sign-image">
+                <h3>Правило 5: Используйте только исправный инструмент и оборудование</h3>
+                <p><strong>Работники должны:</strong> не пользоваться поврежденным инструментом, проверять его комплектность и исправность перед работой. При обнаружении неисправностей — приостановить работы и сообщить руководителю.</p>
+            </div>
+            <div id="v1-rule6" class="tab-content clearfix">
+                <img src="https://i.ibb.co/d7z0d2G/info-sign.png" alt="Знак 'Земляные работы'" class="sign-image">
+                <h3>Правило 6: Проводите земляные работы по действующему наряду-допуску</h3>
+                <p><strong>Работники должны:</strong> убедиться в безопасности начала работ вместе с руководителем. Выполнять требования наряда-допуска и прекратить работы при угрозе происшествия, оповестив руководителя.</p>
+            </div>
+            <div id="v1-rule7" class="tab-content clearfix">
+                <img src="https://i.ibb.co/d7z0d2G/info-sign.png" alt="Знак 'Изолируйте источники энергии'" class="sign-image">
+                <h3>Правило 7: Изолируйте источники энергии</h3>
+                <p>Перед началом ремонтных и других работ необходимо надежно изолировать все источники энергии (электричество, пар, вода и т.д.) и убедиться в невозможности их случайной подачи.</p>
+            </div>
+            <div id="v1-rule8" class="tab-content clearfix">
+                <img src="https://i.ibb.co/sK4y13C/rule8-gas.png" alt="Знак 'Используйте газоанализатор'" class="sign-image">
+                <h3>Правило 8: Используйте газоанализатор, где это необходимо</h3>
+                <p><strong>Работники должны:</strong> убедиться, что замеры воздуха выполнены, и прекратить работы при превышении ПДК.</p>
+                <p><strong>Руководитель работ должен:</strong> организовать замеры состава воздуха до, во время и после окончания работ.</p>
+            </div>
+            <div id="v1-rule9" class="tab-content clearfix">
+                <img src="https://i.ibb.co/3cYJ42h/rule9-no-smoking.png" alt="Знак 'Курение запрещено'" class="sign-image">
+                <h3>Правило 9: Курение запрещено вне специально отведенных мест</h3>
+                <p><strong>Работники должны:</strong> знать о запрете и расположении мест для курения. Вмешиваться, если кто-то курит в неположенном месте.</p>
+            </div>
+            <div id="v1-rule10" class="tab-content clearfix">
+                <img src="https://i.ibb.co/HnJc6j4/rule10-no-phone.png" alt="Знак 'Не пользоваться телефоном за рулем'" class="sign-image">
+                <h3>Правило 10: Во время движения не нарушайте скоростной режим и не пользуйтесь мобильным телефоном</h3>
+                <p><strong>Водителю запрещено:</strong> использовать мобильный телефон/рацию, читать/посылать сообщения, превышать установленную скорость. Скорость должна обеспечивать постоянный контроль над ТС.</p>
+            </div>
+            <div id="v1-rule11" class="tab-content clearfix">
+                 <img src="https://i.ibb.co/xX4b3zT/no-alcohol.png" alt="Знак 'Алкоголь и наркотики запрещены'" class="sign-image">
+                <h3>Правило 11: Запрещено употребление алкоголя, наркотиков и иных запрещенных препаратов</h3>
+                <p><strong>Работникам запрещается:</strong> изготавливать, употреблять, хранить и распространять алкоголь и наркотики.</p>
+                <p><strong>Работники обязаны:</strong> сообщать руководителю о приеме лекарств, влияющих на работоспособность, и об известных случаях употребления алкоголя/наркотиков на рабочих местах.</p>
+            </div>
+            <div id="v1-rule12" class="tab-content clearfix">
+                <img src="https://i.ibb.co/d7z0d2G/info-sign.png" alt="Знак 'Не отвлекайтесь'" class="sign-image">
+                <h3>Правило 12: Не отвлекайтесь во время передвижения</h3>
+                <p><strong>Для обеспечения безопасности необходимо:</strong></p>
+                <ul>
+                    <li>Смотреть «под ноги» во время передвижения.</li>
+                    <li>Не отвлекаться на мобильные устройства.</li>
+                    <li>Не переносить грузы, мешающие обзору.</li>
+                    <li>Держаться за перила при движении по лестницам.</li>
+                    <li>Использовать обувь, соответствующую погодным условиям.</li>
+                    <li>Не оставлять предметы на путях следования.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Версия 2: Полная -->
+        <div id="version2" class="version-container">
+            <div id="v2-rule1" class="tab-content active clearfix">
+                <img src="https://i.ibb.co/L5w1q5Y/rule1-ppe.png" alt="Знак 'Используйте СИЗ'" class="sign-image">
+                <h3>Правило 1: Используйте средства индивидуальной защиты</h3>
+                <ul>
+                    <li>Работники должны использовать средства индивидуальной защиты (спецодежда, спецобувь, защитная каска, защитные очки, перчатки и т.п.) в соответствии с установленными для вида работ и (или) производственного объекта требованиями.</li>
+                    <li><b>Если Вы руководитель работ:</b> Вы должны до начала выполнения работ проверить у всех работников наличие, комплектность и исправность СИЗ, и контролировать их правильное применение в процессе выполнения работ.</li>
+                </ul>
+            </div>
+             <div id="v2-rule2" class="tab-content clearfix">
+                <img src="https://i.ibb.co/v4S6dHy/rule2-seatbelt.png" alt="Знак 'Используйте ремни безопасности'" class="sign-image">
+                <h3>Правило 2: Bo время движения транспортного средства используйте ремни безопасности</h3>
+                <p><b>Водители транспортных средств обязаны:</b></p>
+                <ul>
+                    <li>при движении на транспортном средстве, оборудованном ремнями безопасности, быть пристегнутым и не перевозить пассажиров, не пристегнутых ремнями;</li>
+                    <li>перед выездом проверять работоспособность и отсутствие видимых повреждений на ремнях безопасности;</li>
+                    <li>не начинать движение не убедившись, что все находящиеся в транспортном средстве правильно пристегнуты ремнями безопасности.</li>
+                </ul>
+                <p><b>Пассажиры транспортных средств обязаны:</b></p>
+                <ul>
+                    <li>при движении на транспортном средстве, оборудованном ремнями безопасности, быть пристегнутыми;</li>
+                    <li>проинформировать водителя о пассажирах, неправильно использующих или не использующих ремни безопасности.</li>
+                </ul>
+            </div>
+            <div id="v2-rule3" class="tab-content clearfix">
+                <img src="https://i.ibb.co/3s6K89Z/rule3-height.png" alt="Знак 'Работа на высоте'" class="sign-image">
+                <h3>Правило 3: Используйте средства защиты от падения в случае работы на высоте</h3>
+                <p><b>Для обеспечения безопасности при работе на высоте работники должны:</b></p>
+                <ul>
+                    <li>уметь пользоваться СИЗ, инструментом и техническими средствами, обеспечивающими безопасность;</li>
+                    <li>лично производить осмотр выданных СИЗ перед каждым их использованием;</li>
+                    <li>содержать в исправном состоянии СИЗ, инструмент и технические средства;</li>
+                    <li>выполнять только ту работу, которая поручена.</li>
+                </ul>
+            </div>
+            <div id="v2-rule4" class="tab-content clearfix">
+                <!-- ИЗМЕНЕНИЕ: Пример пути к файлу на GitHub -->
+                <!-- <img src="https://raw.githubusercontent.com/ВАШ_ЛОГИН/ВАШ_РЕПОЗИТОРИЙ/main/images/sign4.png" alt="Знак 'Наряд-допуск'" class="sign-image"> -->
+                <img src="https://i.ibb.co/d7z0d2G/info-sign.png" alt="Знак 'Наряд-допуск'" class="sign-image">
+                <h3>Правило 4: Выполняйте работы повышенной опасностью по действующему наряду-допуску</h3>
+                <p><b>Работники должны:</b></p>
+                <ul>
+                    <li>пройти инструктаж о мерах безопасности;</li>
+                    <li>знать и понимать требования к выполняемой работе, указанные в наряде-допуске, и соблюдать их;</li>
+                    <li>убедиться, что можно безопасно начинать работы;</li>
+                    <li>выполнять только ту работу, которая поручена руководителем;</li>
+                    <li>сообщать руководителю о любых изменениях согласованного порядка выполнения работ.</li>
+                </ul>
+            </div>
+            <div id="v2-rule5" class="tab-content clearfix">
+                <img src="https://i.ibb.co/d7z0d2G/info-sign.png" alt="Знак 'Исправный инструмент'" class="sign-image">
+                <h3>Правило 5: Используйте только исправный инструмент и оборудование</h3>
+                <p><b>Работники должны:</b></p>
+                <ul>
+                    <li>не пользоваться поврежденным (в том числе деформированным) инструментом/приспособлениями/оборудованием;</li>
+                    <li>проверить комплектность, отсутствие механических повреждений и наличие требуемых защитных приспособлений;</li>
+                    <li>в случае выявления неисправностей приостановить производство работ и сообщить непосредственному руководителю.</li>
+                </ul>
+            </div>
+            <div id="v2-rule6" class="tab-content clearfix">
+                <img src="https://i.ibb.co/d7z0d2G/info-sign.png" alt="Знак 'Земляные работы'" class="sign-image">
+                <h3>Правило 6: Проводите земляные работы по действующему наряду-допуску</h3>
+                <p><b>Работники должны:</b></p>
+                <ul>
+                    <li>убедиться вместе с руководителем работ, что можно безопасно начинать земляные работы;</li>
+                    <li>выполнять требования оформленного наряда-допуска;</li>
+                    <li>безопасно прекратить работы и оповестить своего руководителя в случае обнаружения угрозы происшествия/травмирования.</li>
+                </ul>
+            </div>
+            <div id="v2-rule7" class="tab-content clearfix">
+                <img src="https://i.ibb.co/d7z0d2G/info-sign.png" alt="Знак 'Изолируйте источники энергии'" class="sign-image">
+                <h3>Правило 7: Изолируйте источники энергии</h3>
+                <p>Перед началом ремонтных, наладочных и других работ необходимо надежно изолировать все возможные источники энергии (кроме случаев ее использования для проведения работ) и убедиться, что исключена возможность случайной или незапланированной подачи (электричества, пара, воды, опасных веществ и др.).</p>
+            </div>
+            <div id="v2-rule8" class="tab-content clearfix">
+                <img src="https://i.ibb.co/sK4y13C/rule8-gas.png" alt="Знак 'Используйте газоанализатор'" class="sign-image">
+                <h3>Правило 8: Используйте газоанализатор где это необходимо</h3>
+                <p><b>Работники должны:</b></p>
+                <ul>
+                    <li>убедиться вместе с руководителем работ, что необходимые замеры состава воздуха рабочей зоны выполнены и что начинать работы безопасно;</li>
+                    <li>прекратить работы при превышениях предельно допустимых концентраций.</li>
+                </ul>
+                <p><b>Если Вы руководитель работ:</b></p>
+                <ul>
+                    <li>убедитесь, что замер состава воздуха рабочей зоны проведен перед началом работ и проводится в процессе с периодичностью, указанной в наряде-допуске;</li>
+                    <li>организуйте проведение замера по окончанию работ.</li>
+                </ul>
+            </div>
+            <div id="v2-rule9" class="tab-content clearfix">
+                <img src="https://i.ibb.co/3cYJ42h/rule9-no-smoking.png" alt="Знак 'Курение запрещено'" class="sign-image">
+                <h3>Правило 9: Запрещено курение вне специально отведенных для этой цели мест</h3>
+                <p><b>Работники должны:</b></p>
+                <ul>
+                    <li>знать о запрете курения вне специально отведенных для этой цели мест;</li>
+                    <li>знать расположение отведенных для курения мест;</li>
+                    <li>вмешиваться, если кто-то курит за пределами специально отведенных мест для курения.</li>
+                </ul>
+            </div>
+            <div id="v2-rule10" class="tab-content clearfix">
+                <img src="https://i.ibb.co/HnJc6j4/rule10-no-phone.png" alt="Знак 'Не пользоваться телефоном за рулем'" class="sign-image">
+                <h3>Правило 10: Запрещено во время движения транспортного средства нарушать скоростной режим, пользоваться мобильным телефоном</h3>
+                <p><b>Во время движения транспортного средства водителю запрещено:</b></p>
+                <ul>
+                    <li>использовать мобильный телефон/рации, посылать и читать текстовые сообщения;</li>
+                    <li>превышать максимальную разрешенную скорость движения.</li>
+                </ul>
+                <p>Водитель должен вести транспортное средство со скоростью, не превышающей установленного ограничения, учитывая при этом интенсивность движения, состояние транспортного средства и груза, дорожные и метеорологические условия. Скорость должна обеспечивать водителю возможность постоянного контроля за движением.</p>
+            </div>
+            <div id="v2-rule11" class="tab-content clearfix">
+                 <img src="https://i.ibb.co/xX4b3zT/no-alcohol.png" alt="Знак 'Алкоголь и наркотики запрещены'" class="sign-image">
+                <h3>Правило 11: Запрещено употребление алкоголя, наркотиков и иных запрещенных препаратов</h3>
+                <p><b>Работникам запрещается:</b> изготавливать, употреблять, хранить, продавать и распространять алкоголь, наркотики и иные запрещенные препараты.</p>
+                <p><b>Работники обязаны:</b></p>
+                <ul>
+                    <li>сообщать своему непосредственному руководителю о принимаемых лекарственных средствах, которые могут повлиять на их способность выполнять работы;</li>
+                    <li>вмешиваться и сообщать своему непосредственному руководителю об известных им случаях употребления алкоголя или наркотиков на рабочих местах.</li>
+                </ul>
+            </div>
+            <div id="v2-rule12" class="tab-content clearfix">
+                <img src="https://i.ibb.co/d7z0d2G/info-sign.png" alt="Знак 'Не отвлекайтесь'" class="sign-image">
+                <h3>Правило 12: Не отвлекайтесь во время передвижения</h3>
+                <p><b>Для обеспечения безопасности работники должны:</b></p>
+                <ul>
+                    <li>смотреть «под ноги» во время передвижения;</li>
+                    <li>не отвлекаться во время передвижения (не посылать и не читать текстовые сообщения с мобильных устройств);</li>
+                    <li>не переносить и не перемещать грузы, препятствующие обзору поверхности путей следования;</li>
+                    <li>держаться за перила, поручни при передвижении по лестницам, переходным мостикам, площадкам обслуживания;</li>
+                    <li>использовать обувь, соответствующую погодным условиям;</li>
+                    <li>не оставлять оборудование, материалы и инструменты на путях следования.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 1;
+        const totalTabs = 12;
+        let activeVersion = 'version1';
+
+        function switchVersion(versionId) {
+            activeVersion = versionId;
+            document.getElementById('version1').classList.remove('active');
+            document.getElementById('version2').classList.remove('active');
+            document.getElementById(versionId).classList.add('active');
+            
+            document.querySelector('.version-btn[onclick="switchVersion(\'version1\')"]').classList.remove('active');
+            document.querySelector('.version-btn[onclick="switchVersion(\'version2\')"]').classList.remove('active');
+            document.querySelector(`.version-btn[onclick="switchVersion('${versionId}')"]`).classList.add('active');
+
+            openTab(null, 'rule' + currentTab);
+        }
+
+        function openTab(evt, ruleName) {
+            const ruleNumber = ruleName.replace('rule', '');
+            
+            document.querySelectorAll('.tab-content').forEach(tc => tc.style.display = 'none');
+            document.querySelectorAll('.tabs-nav-button').forEach(btn => btn.classList.remove('active'));
+            
+            const tabId = (activeVersion === 'version1' ? '#v1-' : '#v2-') + ruleName;
+            document.querySelector(tabId).style.display = 'block';
+            
+            const activeButtons = document.querySelectorAll(`.tabs-nav-button[onclick="openTab(event, '${ruleName}')"]`);
+            activeButtons.forEach(button => button.classList.add("active"));
+
+            currentTab = parseInt(ruleNumber);
+
+            const burgerMenu = document.querySelector('.mobile-nav-menu');
+            if (burgerMenu.style.display === 'flex') {
+                toggleBurgerMenu();
+            }
+        }
+
+        function navigateTabs(direction) {
+            currentTab += direction;
+            if (currentTab > totalTabs) currentTab = 1;
+            if (currentTab < 1) currentTab = totalTabs;
+            openTab(null, 'rule' + currentTab);
+        }
+
+        function toggleBurgerMenu() {
+            const menu = document.querySelector('.mobile-nav-menu');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // ИЗМЕНЕНИЕ: Копируем кнопки из .desktop-nav-rules в мобильное меню
+            const desktopNavRules = document.querySelector('.desktop-nav-rules');
+            const mobileMenu = document.querySelector('.mobile-nav-menu');
+            mobileMenu.innerHTML = desktopNavRules.innerHTML;
+            
+            switchVersion('version1');
+            openTab(null, 'rule1');
+        });
+    </script>
+</body>
+</html>
+
