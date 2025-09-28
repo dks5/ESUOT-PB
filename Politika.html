@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивные карточки: Политика ПАО "Газпром"</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Настройка шрифта Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Светло-серый фон */
+        }
+
+        /* Стиль для самой карточки */
+        .flashcard-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            cursor: pointer;
+            margin-bottom: 2rem; /* Дополнительный отступ */
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-radius: 1rem; /* rounded-xl */
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem; /* rounded-xl */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem; /* p-6 */
+            text-align: center;
+            font-weight: 600; /* font-semibold */
+            border: 2px solid #3b82f6; /* border-blue-500 */
+        }
+
+        .flashcard-front {
+            background-color: #eff6ff; /* blue-50 */
+            color: #1e40af; /* blue-800 */
+        }
+
+        .flashcard-back {
+            background-color: #3b82f6; /* blue-500 */
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        /* Стиль для кнопки навигации */
+        .nav-button {
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .nav-button:active {
+            transform: translateY(1px);
+            box-shadow: none;
+        }
+
+        /* Адаптивность для текста на карточках */
+        .card-text {
+            font-size: 1rem;
+        }
+        @media (min-width: 640px) {
+            .card-text {
+                font-size: 1.125rem; /* sm:text-lg */
+            }
+        }
+
+        /* Стиль активной закладки */
+        .tab-button.active {
+            border-color: #3b82f6;
+            background-color: white;
+            color: #3b82f6;
+            font-weight: 700;
+        }
+        .tab-button {
+            transition: all 0.2s;
+            white-space: nowrap; /* Гарантируем, что текст вкладки не переносится */
+        }
+
+        /* Стиль для крупного блока в закладке "Основные пункты" */
+        .policy-point-block {
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            padding: 2rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 flex flex-col items-center min-h-screen">
+
+    <div class="max-w-4xl w-full">
+        <!-- Заголовок (Сделан еще меньше: text-xl/sm:text-2xl и mb-3) -->
+        <h1 class="text-xl sm:text-2xl font-extrabold text-gray-800 mb-3 text-center">
+            Политика ПАО «ГАЗПРОМ» в области ОТ, ПБ, ПожБ и БДД
+        </h1>
+        
+        <!-- Контейнер для закладок (Tabs) -->
+        <div class="border-b border-gray-200 mb-6">
+            <nav class="-mb-px flex space-x-2 sm:space-x-4 overflow-x-auto" aria-label="Tabs">
+                <button id="tab-fulltext-btn" data-tab-target="fulltext-content" class="tab-button flex-1 py-3 px-1 text-center text-sm sm:text-lg border-b-2 border-transparent hover:border-gray-300 rounded-t-lg text-gray-500 hover:text-gray-700">
+                    Основной текст
+                </button>
+                <button id="tab-summary-btn" data-tab-target="summary-content" class="tab-button active flex-1 py-3 px-1 text-center text-sm sm:text-lg border-b-2 border-transparent hover:border-gray-300 rounded-t-lg bg-white text-blue-600 font-bold">
+                    Основные пункты
+                </button>
+                <button id="tab-flashcards-btn" data-tab-target="flashcards-content" class="tab-button flex-1 py-3 px-1 text-center text-sm sm:text-lg border-b-2 border-transparent hover:border-gray-300 text-gray-500 hover:text-gray-700 rounded-t-lg">
+                    Карточки
+                </button>
+            </nav>
+        </div>
+
+        <!-- Содержимое закладок -->
+        <div id="tab-content-container" class="bg-white p-4 sm:p-6 rounded-xl shadow-lg">
+
+            <!-- 1. Содержимое закладки "Основной текст" -->
+            <div id="fulltext-content" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Общий контекст и приоритеты</h2>
+                <div class="text-gray-700 space-y-4 text-sm sm:text-base leading-relaxed">
+                    <p>
+                        Деятельность ПАО «Газпром» и его дочерних обществ имеет стратегическое значение для экономики России и других стран. ПАО «Газпром» в полной мере осознает свою ответственность перед обществом за создание безопасных условий труда, включая безопасность дорожного движения при осуществлении своей производственной деятельности, обеспечение требований промышленной и пожарной безопасности.
+                    </p>
+                    <p class="font-bold text-lg">
+                        Признание приоритета:
+                    </p>
+                    <p>
+                        Руководство ПАО «Газпром» и его дочерних обществ признает **приоритетным обеспечение жизни и здоровья работников**, рассматривает охрану труда, промышленную и пожарную безопасность, безопасность дорожного движения как необходимые элементы эффективного управления производственной деятельностью.
+                    </p>
+                    
+                    <h3 class="font-bold text-xl mt-4">Достижение целей</h3>
+                    <p>Цели достигаются путем предупреждения несчастных случаев, профессиональных заболеваний, аварий, инцидентов, пожаров, дорожно-транспортных происшествий на основе:</p>
+                    <ul class="list-disc pl-5 ml-2 space-y-1">
+                        <li>идентификации опасностей;</li>
+                        <li>оценки и управления рисками в области производственной безопасности;</li>
+                        <li>повышения компетентности работников и их представителей, вовлечения их в систему управления производственной безопасностью.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 2. Содержимое закладки "Основные пункты политики" (Карусель) -->
+            <div id="summary-content" class="tab-content">
+                <p class="text-gray-500 text-center mb-6">
+                    Переключайтесь, чтобы просмотреть все основные Цели и Обязательства.
+                </p>
+                <div class="flex justify-center items-stretch w-full">
+                    <div id="policy-block" class="policy-point-block bg-blue-50 w-full max-w-xl border-t-4 border-blue-600">
+                        <h2 id="summary-title" class="text-2xl font-extrabold text-blue-800 mb-4"></h2>
+                        <p id="summary-text" class="text-xl text-gray-700 font-medium"></p>
+                    </div>
+                </div>
+
+                <!-- Навигация для основных пунктов -->
+                <div class="flex justify-between items-center w-full max-w-lg mx-auto mt-8">
+                    <button id="summary-prev-btn" class="nav-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-full shadow-md flex items-center disabled:opacity-50" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                        </svg>
+                        Влево
+                    </button>
+
+                    <span id="summary-counter" class="text-xl font-semibold text-gray-700">1 / 1</span>
+
+                    <button id="summary-next-btn" class="nav-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-full shadow-md flex items-center disabled:opacity-50">
+                        Вправо
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 ml-2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. Содержимое закладки "Карточки для изучения" -->
+            <div id="flashcards-content" class="tab-content hidden">
+                <p class="text-gray-500 text-center mb-6">
+                    Нажмите на карточку, чтобы увидеть ответ. Используйте стрелки навигации или кнопки на клавиатуре (влево/вправо/пробел).
+                </p>
+                <!-- Контейнер для карточки (перенесен из основного body) -->
+                <div id="card-display" class="flashcard-container mx-auto">
+                    <div id="flashcard" class="flashcard">
+                        <div id="card-front" class="flashcard-face flashcard-front">
+                            <!-- Содержимое передней стороны -->
+                            <span class="card-text text-xl sm:text-2xl font-bold"></span>
+                        </div>
+                        <div id="card-back" class="flashcard-face flashcard-back">
+                            <!-- Содержимое обратной стороны -->
+                            <span class="card-text"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Навигация и счетчик (перенесен из основного body) -->
+                <div class="flex justify-between items-center w-full max-w-lg mx-auto">
+                    <button id="prev-btn" class="nav-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-lg flex items-center disabled:opacity-50" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                        </svg>
+                        Назад
+                    </button>
+
+                    <span id="card-counter" class="text-xl font-semibold text-gray-700">1 / 1</span>
+
+                    <button id="next-btn" class="nav-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-lg flex items-center disabled:opacity-50">
+                        Вперед
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 ml-2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+        </div> <!-- /#tab-content-container -->
+    </div>
+
+    <script>
+        // Данные для карусели "Основные пункты политики"
+        const policyPoints = [
+            { title: "ЦЕЛЬ 1: Охрана труда", content: "Создание безопасных условий труда, сохранение жизни и здоровья работников." },
+            { title: "ЦЕЛЬ 2: Промышленная безопасность (ПБ)", content: "Снижение рисков аварий и инцидентов на опасных производственных объектах (ОПО)." },
+            { title: "ЦЕЛЬ 3: Безопасность дорожного движения (БДД)", content: "Снижение рисков дорожно-транспортных происшествий (ДТП), связанных с производственной деятельностью." },
+            { title: "ЦЕЛЬ 4: Пожарная безопасность (ПожБ)", content: "Обеспечение пожарной безопасности." },
+            { title: "ОБЯЗАТЕЛЬСТВО 1: Снижение показателей", content: "Постоянно снижать показатели производственного травматизма, профзаболеваний, аварийности и минимизировать риски возникновения пожаров, ДТП." },
+            { title: "ОБЯЗАТЕЛЬСТВО 2: Соблюдение требований", content: "Обеспечивать соблюдение требований нормативных правовых актов, нормативных документов федерального, регионального и корпоративного уровней." },
+            { title: "ОБЯЗАТЕЛЬСТВО 3: СУПБ и Культура", content: "Обеспечивать эффективное функционирование и непрерывное совершенствование Системы управления производственной безопасностью (СУПБ), развивая культуру безопасности." },
+            { title: "ОБЯЗАТЕЛЬСТВО 4: Управление рисками", content: "Осуществлять оценку рисков, обеспечивать управление рисками для предупреждения возникновения травм, ухудшения здоровья работников, повреждения оборудования и имущества." },
+            { title: "ОБЯЗАТЕЛЬСТВО 5: Устранение опасностей", content: "Обеспечивать последовательное и непрерывное выполнение мероприятий, направленных на устранение опасностей и снижение рисков." },
+            { title: "ОБЯЗАТЕЛЬСТВО 6: Участие работников", content: "Привлекать работников и их представителей к активному участию в деятельности по обеспечению требований производственной безопасности." },
+            { title: "ОБЯЗАТЕЛЬСТВО 7: Подрядчики", content: "Требовать от поставщиков и подрядчиков соблюдения требований нормативных правовых актов и корпоративных нормативных документов в области производственной безопасности." }
+        ];
+
+        // Использование глобальной переменной для хранения данных карточек
+        const flashcards = [
+            // Цели
+            {
+                front: "Первая основная цель ПАО «Газпром» в области производственной безопасности.",
+                back: "Создание безопасных условий труда, сохранение жизни и здоровья работников."
+            },
+            {
+                front: "Вторая основная цель ПАО «Газпром» (про риски на ОПО).",
+                back: "Снижение рисков аварий и инцидентов на опасных производственных объектах."
+            },
+            {
+                front: "Третья основная цель ПАО «Газпром» (про БДД).",
+                back: "Снижение рисков дорожно-транспортных происшествий, связанных с производственной деятельностью."
+            },
+            {
+                front: "Четвертая основная цель ПАО «Газпром» (про ПожБ).",
+                back: "Обеспечение пожарной безопасности."
+            },
+            {
+                front: "На какой основе достигаются цели Политики?",
+                back: "На основе предупреждения несчастных случаев, профзаболеваний, аварий, инцидентов, пожаров, ДТП."
+            },
+            // Обязательства
+            {
+                front: "Одно из обязательств: что компания делает с показателями травматизма, аварийности и рисками?",
+                back: "Постоянно снижать показатели производственного травматизма, профессиональных заболеваний, аварийности, а также минимизировать риски возникновения пожаров, дорожно-транспортных происшествий."
+            },
+            {
+                front: "Одно из обязательств: про требования нормативных актов.",
+                back: "Обеспечивать соблюдение требований нормативных правовых актов, нормативных документов федерального, регионального и корпоративного уровней."
+            },
+            {
+                front: "Одно из обязательств: про СУПБ и культуру.",
+                back: "Обеспечивать эффективное функционирование и непрерывное совершенствование системы управления производственной безопасностью (СУПБ), в том числе развивая культуру производственной безопасности."
+            },
+            {
+                front: "Одно из обязательств: про оценку и управление рисками.",
+                back: "Осуществлять оценку рисков, обеспечивать управление рисками для предупреждения возникновения травм, ухудшения здоровья работников, повреждения оборудования и имущества."
+            },
+            {
+                front: "Одно из обязательств: про устранение опасностей.",
+                back: "Обеспечивать последовательное и непрерывное выполнение мероприятий, направленных на устранение опасностей и снижение рисков."
+            },
+            {
+                front: "Одно из обязательств: про привлечение работников.",
+                back: "Привлекать работников и их представителей к активному участию в деятельности по обеспечению требований производственной безопасности."
+            },
+            {
+                front: "Одно из обязательств: про поставщиков и подрядчиков.",
+                back: "Требовать от поставщиков и подрядчиков соблюдения требований нормативных правовых актов и корпоративных нормативных документов в области производственной безопасности."
+            }
+        ];
+
+        let currentCardIndex = 0;
+        let currentSummaryIndex = 0; // Индекс для карусели "Основные пункты"
+
+        // Элементы карточек
+        const flashcardElement = document.getElementById('flashcard');
+        const cardFront = document.getElementById('card-front').querySelector('.card-text');
+        const cardBack = document.getElementById('card-back').querySelector('.card-text');
+        const cardCounter = document.getElementById('card-counter');
+        const prevBtn = document.getElementById('prev-btn'); 
+        const nextBtn = document.getElementById('next-btn'); 
+
+        // Элементы карусели "Основные пункты"
+        const summaryTitle = document.getElementById('summary-title');
+        const summaryText = document.getElementById('summary-text');
+        const summaryCounter = document.getElementById('summary-counter');
+        const summaryPrevBtn = document.getElementById('summary-prev-btn');
+        const summaryNextBtn = document.getElementById('summary-next-btn');
+        
+        // Элементы закладок
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        /**
+         * Переключает активную вкладку
+         * @param {string} tabId ID контента, который нужно показать
+         */
+        function switchTab(tabId) {
+            // Скрыть все содержимое и деактивировать все кнопки
+            tabContents.forEach(content => content.classList.add('hidden'));
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+                button.classList.remove('text-blue-600', 'font-bold', 'bg-white');
+                button.classList.add('text-gray-500', 'hover:text-gray-700');
+            });
+
+            // Показать выбранное содержимое и активировать кнопку
+            const activeContent = document.getElementById(tabId);
+            const activeButton = document.querySelector(`[data-tab-target="${tabId}"]`);
+
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+            }
+            if (activeButton) {
+                activeButton.classList.add('active', 'text-blue-600', 'font-bold', 'bg-white');
+                activeButton.classList.remove('text-gray-500', 'hover:text-gray-700');
+            }
+        }
+
+        // --- Логика для карусели "Основные пункты" ---
+        function updateSummaryDisplay() {
+            const pointData = policyPoints[currentSummaryIndex];
+            summaryTitle.textContent = pointData.title;
+            summaryText.textContent = pointData.content;
+            summaryCounter.textContent = `${currentSummaryIndex + 1} / ${policyPoints.length}`;
+
+            summaryPrevBtn.disabled = currentSummaryIndex === 0;
+            summaryNextBtn.disabled = currentSummaryIndex === policyPoints.length - 1;
+        }
+
+        function nextSummary() {
+            if (currentSummaryIndex < policyPoints.length - 1) {
+                currentSummaryIndex++;
+                updateSummaryDisplay();
+            }
+        }
+
+        function prevSummary() {
+            if (currentSummaryIndex > 0) {
+                currentSummaryIndex--;
+                updateSummaryDisplay();
+            }
+        }
+
+        // --- Логика для Карточек ---
+        function updateCardDisplay() {
+            flashcardElement.classList.remove('flipped'); 
+            const cardData = flashcards[currentCardIndex];
+            cardFront.textContent = cardData.front;
+            cardBack.textContent = cardData.back;
+
+            cardCounter.textContent = `${currentCardIndex + 1} / ${flashcards.length}`;
+
+            prevBtn.disabled = currentCardIndex === 0;
+            nextBtn.disabled = currentCardIndex === flashcards.length - 1;
+        }
+
+        function flipCard() {
+            flashcardElement.classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            if (currentCardIndex < flashcards.length - 1) {
+                currentCardIndex++;
+                updateCardDisplay();
+            }
+        }
+
+        function prevCard() {
+            if (currentCardIndex > 0) {
+                currentCardIndex--;
+                updateCardDisplay();
+            }
+        }
+
+        // --- Инициализация и обработчики событий ---
+
+        // 1. Настройка закладок
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-tab-target');
+                switchTab(target);
+            });
+        });
+
+        // 2. Обработчики для карусели "Основные пункты"
+        summaryNextBtn.addEventListener('click', nextSummary);
+        summaryPrevBtn.addEventListener('click', prevSummary);
+
+        // 3. Обработчик нажатия/касания на карточку
+        flashcardElement.addEventListener('click', flipCard);
+        
+        // Обработчик касания на карточку (для сенсорных экранов)
+        flashcardElement.addEventListener('touchstart', (event) => {
+            // Реагируем только если активна вкладка с карточками
+            if (!document.getElementById('flashcards-content').classList.contains('hidden')) {
+                event.preventDefault(); 
+                flipCard();
+            }
+        }, { passive: false });
+
+        // 4. Обработчики кнопок карточек
+        nextBtn.addEventListener('click', nextCard);
+        prevBtn.addEventListener('click', prevCard);
+
+        // 5. Обработчик нажатия клавиш (только для карточек)
+        document.addEventListener('keydown', (event) => {
+             // Реагируем только если активна вкладка с карточками
+             if (document.getElementById('flashcards-content').classList.contains('hidden')) {
+                 return; 
+             }
+             
+            // Пробел или Enter для переворота
+            if (event.key === ' ' || event.key === 'Enter') {
+                event.preventDefault(); 
+                flipCard();
+            }
+            // Стрелка вправо для следующей карточки
+            else if (event.key === 'ArrowRight') {
+                nextCard();
+            }
+            // Стрелка влево для предыдущей карточки
+            else if (event.key === 'ArrowLeft') {
+                prevCard();
+            }
+        });
+
+        // Запуск приложения: инициализация карточек и показ первой вкладки
+        window.onload = function() {
+            if (flashcards.length > 0) {
+                updateCardDisplay();
+            }
+            if (policyPoints.length > 0) {
+                updateSummaryDisplay();
+            }
+            // Убедимся, что при загрузке активна первая вкладка (summary-content)
+            // Мы делаем "Основные пункты" активными по умолчанию, так как это интерактивный элемент для быстрого просмотра.
+            switchTab('summary-content'); 
+        };
+
+    </script>
+</body>
+</html>
