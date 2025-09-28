@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Справочник СТО Газпром 18000.1-001-2021</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 70px; /* Offset for fixed navbar */
+        }
+        body {
+            background-color: #f8f9fa;
+        }
+        .section {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        #term-list .list-group-item {
+            cursor: pointer;
+        }
+        .term-card {
+            min-height: 300px;
+        }
+        /* Make sidebar scrollable on desktop */
+        @media (min-width: 768px) {
+            .sidebar-sticky {
+                position: -webkit-sticky;
+                position: sticky;
+                top: 80px; /* Navbar height + padding */
+                height: calc(100vh - 100px);
+                overflow-y: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">СТО Газпром</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#glossary">Глоссарий</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#general-requirements">Общие требования</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#leadership">Лидерство</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Glossary Section -->
+        <section id="glossary" class="section">
+            <h2 class="mb-4 pb-2 border-bottom">Интерактивный глоссарий</h2>
+            <div class="row">
+                <!-- Sidebar with terms -->
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                   <div class="sidebar-sticky">
+                     <div class="card">
+                        <div class="card-header">
+                            <input type="text" id="search-box" class="form-control" placeholder="Поиск по терминам...">
+                        </div>
+                        <ul id="term-list" class="list-group list-group-flush">
+                            <!-- Term list will be populated by JS -->
+                        </ul>
+                    </div>
+                   </div>
+                </div>
+
+                <!-- Term definition card -->
+                <div class="col-lg-8">
+                    <div id="main-content" class="term-card card">
+                         <!-- Term card will be populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- General Requirements Section -->
+        <section id="general-requirements" class="section">
+            <h2 class="mb-4 pb-2 border-bottom">4. Общие требования</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p><strong>4.1</strong> ЕСУПБ функционирует в ПАО «Газпром», дочерних обществах, дочерних обществах дочерних обществ, сторонних организациях (индивидуальных предпринимателей), осуществляющих работы по договору подряда на объектах ПАО «Газпром» и его дочерних обществ в соответствии с п.1.2.</p>
+                    
+                    <h5 class="mt-4">4.2 Цели ЕСУПБ:</h5>
+                    <ul>
+                        <li>выполнение принятых обязательств Политики ПАО «Газпром»;</li>
+                        <li>предотвращение возникновения происшествий в области производственной безопасности, снижение (исключение) рисков в области производственной безопасности;</li>
+                        <li>обеспечение работников последовательным описанием ЕСУПБ, ее отдельных элементов, процедур управления и их взаимосвязей, а также установления порядка взаимодействия между структурными подразделениями и работниками в рамках ЕСУПБ;</li>
+                        <li>обеспечение целостности ЕСУПБ при возможных изменениях внутренних и внешних обстоятельств и условий функционирования ЕСУПБ;</li>
+                        <li>обеспечение функционирования и постоянного совершенствования ЕСУПБ.</li>
+                    </ul>
+
+                    <h5 class="mt-4">4.3 Задачи ЕСУПБ:</h5>
+                     <ul>
+                        <li>контроль за соблюдением требований производственной безопасности;</li>
+                        <li>создание условий для укрепления производственной и технологической дисциплины;</li>
+                        <li>обеспечение противоаварийной устойчивости и снижения уровня происшествий;</li>
+                        <li>оценка уровня безопасности производства, выявление опасных технологий, участков и рабочих мест;</li>
+                        <li>обеспечение выполнение мероприятий в области ПБ;</li>
+                        <li>управление основными рисками в области производственной безопасности;</li>
+                        <li>взаимодействие с государственными, местными органами и профсоюзными организациями;</li>
+                        <li>подготовка и распространение информации о состоянии промышленной безопасности.</li>
+                    </ul>
+                    
+                    <p><strong>4.4</strong> На уровне ПАО «Газпром» высшим руководством является Председатель Правления ПАО «Газпром», на уровне ДОИО – руководитель ДОИО.</p>
+
+                    <h5 class="mt-4">4.5 ЕСУПБ построена на следующих принципах:</h5>
+                    <ul>
+                        <li>лидерства руководителей всех уровней;</li>
+                        <li>формирования и развития культуры производственной безопасности;</li>
+                        <li>вовлеченности работников в управление рисками;</li>
+                        <li>обеспечении участия работников и/или их уполномоченных представителей;</li>
+                        <li>ответственности каждого работника за соблюдение требований;</li>
+                        <li>приоритетности мер предупреждения перед мерами реагирования;</li>
+                        <li>непрерывной оценки результатов и постоянного мониторинга;</li>
+                        <li>непрерывного совершенствования ЕСУПБ.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership and Worker Participation Section -->
+        <section id="leadership" class="section">
+            <h2 class="mb-4 pb-2 border-bottom">5. Лидерство и участие работников</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">5.1 Лидерство и приверженность</h5>
+                    <p>Лидерство и приверженность ЕСУПБ обеспечивается высшим руководством ПАО «Газпром» и руководством ДОИО, посредством:</p>
+                    <ul>
+                        <li>Принятия ответственности за предотвращение происшествий и обеспечение достижения целей ЕСУПБ.</li>
+                        <li>Установления Политики и целей в области производственной безопасности.</li>
+                        <li>Обеспечения внедрения требований ПБ в каждый бизнес-процесс.</li>
+                        <li>Обеспечения ресурсами для поддержания и совершенствования ЕСУПБ.</li>
+                        <li>Поддержки руководителей, демонстрирующих лидерство в вопросах производственной безопасности.</li>
+                        <li>Недопущения преследования работников, сообщающих о происшествиях, опасностях и рисках.</li>
+                        <li>Консультирования и участия работников в вопросах ПБ.</li>
+                    </ul>
+
+                    <h5 class="card-title mt-4">5.2 Политика ПАО «Газпром»</h5>
+                    <p>Политика является документом о намерениях, принципах и обязательствах ПАО «Газпром» в области производственной безопасности. Она утверждается высшим руководством, распространяется на все структурные подразделения и подрядные организации, и доводится до сведения всех лиц.</p>
+
+                    <h5 class="card-title mt-4">5.4 Консультирование и участие работников</h5>
+                    <p>В ЕСУПБ установлены вертикальные и горизонтальные корпоративные коммуникации для открытого информирования работников. Интересы работников представляют МПО, ПО и уполномоченные по охране труда. Работники вовлекаются в следующие виды работ:</p>
+                    <ul>
+                        <li>Идентификацию опасностей и оценку рисков в области ПБ.</li>
+                        <li>Разработку предложений по совершенствованию результативности ЕСУПБ.</li>
+                        <li>Определение требований к компетенции и потребности в обучении.</li>
+                        <li>Определение мер управления ПБ и их эффективного применения.</li>
+                        <li>Расследование происшествий в области ПБ и установление их причин.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const terms = [
+            {
+                term: "Авария",
+                definition: "Разрушение сооружений и (или) технических устройств, применяемых на опасном производственном объекте, неконтролируемые взрыв и (или) выброс опасных веществ.",
+                source: "Федеральный закон [3], статья 1"
+            },
+            {
+                term: "Аттестация в области промышленной безопасности",
+                definition: "Комплексная оценка знаний требований промышленной безопасности, установленных федеральными законодательными и иными нормативными актами Российской Федерации по общим вопросам промышленной безопасности, и нормативных правовых актов и нормативно-технических документов в области промышленной безопасности по специальным вопросам, отнесенным к компетенции аттестуемого работника.",
+                source: ""
+            },
+            {
+                term: "Аудит (audit)",
+                definition: "Систематический, независимый и документированный процесс получения объективных свидетельств и их объективного оценивания для установления степени соответствия критериям аудита.",
+                source: "ГОСТ Р ИСО 9000-2015, пункт 3.13.1"
+            },
+            {
+                term: "Безопасность дорожного движения",
+                definition: "Состояние данного процесса, отражающее степень защищенности его участников от дорожно-транспортных происшествий и их последствий.",
+                source: "Федеральный закон [4], статья 2"
+            },
+            {
+                term: "Вредный производственный фактор",
+                definition: "Производственный фактор, воздействие которого на работника может привести к его заболеванию.",
+                source: "Трудовой кодекс [5], статья 209"
+            },
+            {
+                term: "Единая система управления производственной безопасностью",
+                definition: "Комплекс взаимосвязанных организационных и технических мероприятий, осуществляемых ПАО «Газпром» в целях обеспечения требований производственной безопасности.",
+                source: ""
+            },
+            {
+                term: "Идентификация опасности",
+                definition: "Процесс признания существования опасности и определения ее характеристик.",
+                source: "ГОСТ Р 54934-2012/OHSAS 18001:2007, пункт 3.7"
+            },
+            {
+                term: "Инцидент",
+                definition: "Отказ или повреждение технических устройств, применяемых на опасном производственном объекте, отклонение от установленного режима технологического процесса.",
+                source: "Федеральный закон [3], статья 1"
+            },
+            {
+                term: "Опасность",
+                definition: "Объект, ситуация или действие, которые способны нанести вред человеку в виде травмы или ухудшения состояния здоровья, или их сочетания, а также привести к аварии, инциденту, пожару или дорожно-транспортному происшествию.",
+                source: ""
+            },
+            {
+                term: "Охрана труда",
+                definition: "Система сохранения жизни и здоровья работников в процессе трудовой деятельности, включающая в себя правовые, социально-экономические, организационно-технические, санитарно-гигиенические, лечебно-профилактические, реабилитационные и иные мероприятия.",
+                source: "Трудовой кодекс [5], статья 209"
+            },
+            {
+                term: "Производственная безопасность",
+                definition: "Состояние защищенности основных фондов, работников, а также третьих лиц (включая их имущество) и окружающей среды от воздействия негативных факторов, происшествий, вредных и опасных производственных факторов.",
+                source: ""
+            },
+            {
+                term: "Риск в области производственной безопасности (риск)",
+                definition: "Соотношение вероятности возникновения опасного события или воздействия и последствий: травмы, ухудшения здоровья, дорожно-транспортные происшествия, аварии, инциденты, пожары, иные негативные последствия, которые могут быть вызваны такими событиями или воздействиями.",
+                source: ""
+            }
+        ];
+
+        const termList = document.getElementById('term-list');
+        const mainContent = document.getElementById('main-content');
+        const searchBox = document.getElementById('search-box');
+
+        function displayTerms(filter = '') {
+            const currentActive = termList.querySelector('.active');
+            const currentActiveIndex = currentActive ? currentActive.dataset.index : '0';
+
+            termList.innerHTML = '';
+            const filteredTerms = terms.filter(t => t.term.toLowerCase().includes(filter.toLowerCase()));
+            
+            if (filteredTerms.length === 0) {
+                mainContent.innerHTML = '<div class="card-body"><p class="text-muted">Термины не найдены.</p></div>';
+                return;
+            }
+            
+            filteredTerms.forEach((termData) => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item';
+                listItem.textContent = termData.term;
+                listItem.dataset.index = terms.indexOf(termData);
+                termList.appendChild(listItem);
+            });
+            
+            let newActiveIndex = terms.indexOf(filteredTerms[0]);
+            const currentIsVisible = filteredTerms.some(t => terms.indexOf(t) == currentActiveIndex);
+            if (currentIsVisible) {
+                newActiveIndex = currentActiveIndex;
+            }
+            
+            showTermDetails(newActiveIndex);
+        }
+
+        function showTermDetails(index) {
+            const termData = terms[index];
+            if (!termData) return;
+
+            mainContent.innerHTML = `
+                <div class="card-body">
+                    <h4 class="card-title text-primary">${termData.term}</h4>
+                    <p class="card-text fs-5">${termData.definition}</p>
+                    ${termData.source ? `<footer class="blockquote-footer mt-3">Источник: ${termData.source}</footer>` : ''}
+                </div>`;
+            
+            Array.from(termList.children).forEach(li => {
+                 li.classList.toggle('active', li.dataset.index == index);
+            });
+        }
+        
+        termList.addEventListener('click', (e) => {
+            if (e.target.tagName === 'LI') {
+                const index = e.target.dataset.index;
+                showTermDetails(index);
+            }
+        });
+        
+        searchBox.addEventListener('input', (e) => {
+             displayTerms(e.target.value);
+        });
+
+        // Initial load
+        displayTerms();
+    </script>
+</body>
+</html>
+
