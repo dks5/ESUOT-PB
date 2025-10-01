@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Исполнение Политики в области охраны труда</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- Иконки Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .main-container {
+            max-width: 1140px;
+        }
+        .nav-tabs .nav-link {
+            color: #495057;
+            border-bottom-width: 2px;
+            font-size: 0.9rem; /* Уменьшим шрифт для вкладок */
+        }
+        .nav-tabs .nav-link.active {
+            color: #0d6efd;
+            border-color: #dee2e6 #dee2e6 #fff;
+            border-bottom: 2px solid #0d6efd;
+        }
+        .card-header-icon {
+            font-size: 1.8rem;
+            margin-right: 1rem;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .card-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.25rem !important;
+        }
+        .list-group-item {
+            font-size: 1.05rem;
+            padding: 0.75rem 0;
+            background-color: transparent;
+            border: none;
+        }
+        .list-group-item b {
+           color: #0d6efd;
+        }
+        
+        #summary-pane .card-body p {
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        /* --- СТИЛИ ДЛЯ ПЕЧАТИ --- */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            #export-buttons-container, #myTab, script {
+                display: none !important;
+            }
+            
+            .tab-content > .tab-pane {
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                page-break-before: always;
+            }
+             .tab-content > .tab-pane:first-child {
+                page-break-before: auto;
+            }
+
+            .main-container, .card, .list-group-item {
+                page-break-inside: avoid;
+            }
+            
+            .main-container {
+                 max-width: 100% !important;
+                 margin: 0 !important;
+                 padding: 0 !important;
+                 box-shadow: none !important;
+            }
+
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container main-container mt-4 mb-5">
+        <h4 id="main-title" class="text-center mb-4">Исполнение Политики в области охраны труда, промышленной и пожарной безопасности</h4>
+        <div id="export-buttons-container" class="text-center mb-4">
+            <button id="print-btn" class="btn btn-info text-white btn-sm"><i class="bi bi-printer me-2"></i>Печать лентой</button>
+            <button id="export-btn-100" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (100%)</button>
+            <button id="export-btn-90" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (90%)</button>
+            <button id="export-btn-80" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (80%)</button>
+        </div>
+
+        <!-- Навигационный бар с вкладками -->
+        <ul class="nav nav-tabs nav-fill mb-4" id="myTab" role="tablist">
+             <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-pane" type="button" role="tab" aria-controls="all-pane" aria-selected="true"><i class="bi bi-collection-fill me-2"></i>Все уровни</button>
+            </li>
+             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary-pane" type="button" role="tab" aria-controls="summary-pane" aria-selected="false"><i class="bi bi-card-text me-2"></i>Кратко</button>
+            </li>
+             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="top-management-tab" data-bs-toggle="tab" data-bs-target="#top-management-pane" type="button" role="tab" aria-controls="top-management-pane" aria-selected="false"><i class="bi bi-people-fill me-2"></i>Высшее руководство</button>
+            </li>
+             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="representative-tab" data-bs-toggle="tab" data-bs-target="#representative-pane" type="button" role="tab" aria-controls="representative-pane" aria-selected="false"><i class="bi bi-person-check-fill me-2"></i>Представитель и Комиссия</button>
+            </li>
+             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="authorized-unit-tab" data-bs-toggle="tab" data-bs-target="#authorized-unit-pane" type="button" role="tab" aria-controls="authorized-unit-pane" aria-selected="false"><i class="bi bi-diagram-3-fill me-2"></i>Уполном. подразд.</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="doio-tab" data-bs-toggle="tab" data-bs-target="#doio-pane" type="button" role="tab" aria-controls="doio-pane" aria-selected="false"><i class="bi bi-building-gear me-2"></i>ДОиО</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="line-management-tab" data-bs-toggle="tab" data-bs-target="#line-management-pane" type="button" role="tab" aria-controls="line-management-pane" aria-selected="false"><i class="bi bi-person-workspace me-2"></i>Линейное руководство</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="workers-tab" data-bs-toggle="tab" data-bs-target="#workers-pane" type="button" role="tab" aria-controls="workers-pane" aria-selected="false"><i class="bi bi-person-fill me-2"></i>Работники</button>
+            </li>
+        </ul>
+
+        <!-- Содержимое вкладок -->
+        <div class="tab-content" id="myTabContent">
+            
+            <!-- Сводная вкладка -->
+            <div class="tab-pane fade show active p-3" id="all-pane" role="tabpanel" aria-labelledby="all-tab">
+                <!-- Карта для каждого уровня -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white d-flex align-items-center"><i class="bi bi-people-fill card-header-icon"></i><h5 class="mb-0">1. Уровень Высшего руководства</h5></div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Определение и утверждение Политики:</b> Утверждает Политику ПАО «Газпром» в области ПБ.</li>
+                            <li class="list-group-item"><b>Лидерство и ответственность:</b> Принимает на себя ответственность за предотвращение происшествий.</li>
+                            <li class="list-group-item"><b>Обеспечение ресурсами:</b> Обеспечивает кадровыми, финансовыми, и материально-техническими ресурсами.</li>
+                            <li class="list-group-item"><b>Анализ и совершенствование:</b> Проводит анализ функционирования ЕСУПБ и определяет возможности для улучшения.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-info text-white d-flex align-items-center"><i class="bi bi-person-check-fill card-header-icon"></i><h5 class="mb-0">2. Уровень Представителя высшего руководства и Комиссии по ПБ</h5></div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Координация и организация:</b> Представитель руководства возглавляет работу по ПБ и Комиссию по ПБ.</li>
+                           <li class="list-group-item"><b>Внедрение и совершенствование:</b> Организует разработку и непрерывное совершенствование ЕСУПБ.</li>
+                           <li class="list-group-item"><b>Утверждение планов:</b> Утверждает цели, план КиПД и годовой отчет о функционировании ЕСУПБ.</li>
+                           <li class="list-group-item"><b>Оценка соответствия:</b> Комиссия по ПБ организует оценку соответствия нормативным требованиям.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-secondary text-white d-flex align-items-center"><i class="bi bi-diagram-3-fill card-header-icon"></i><h5 class="mb-0">3. Уровень Уполномоченного и Структурных подразделений</h5></div>
+                    <div class="card-body">
+                         <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Методология и внедрение:</b> Уполномоченное подразделение формирует, внедряет и совершенствует ЕСУПБ.</li>
+                           <li class="list-group-item"><b>Управление рисками:</b> Является владельцем рисков, а структурные подразделения - совладельцами.</li>
+                           <li class="list-group-item"><b>Разработка программ:</b> Структурные подразделения организуют разработку программ для достижения целей ПБ.</li>
+                           <li class="list-group-item"><b>Информирование:</b> Обеспечивают информирование работников о требованиях ПБ.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header text-white d-flex align-items-center" style="background-color: #6f42c1;"><i class="bi bi-building-gear card-header-icon"></i><h5 class="mb-0">4. Уровень Дочерних Обществ и Организаций (ДОиО)</h5></div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Ответственность руководителя:</b> Руководитель ДОиО несет полную ответственность за функционирование ЕСУПБ.</li>
+                           <li class="list-group-item"><b>Организация главным инженером:</b> Главный инженер организует реализацию Политики и управление рисками.</li>
+                           <li class="list-group-item"><b>Исполнение в подразделениях:</b> Функции исполняются через руководителей отделов (ОТ, ПБ, Транспортного и т.д.).</li>
+                           <li class="list-group-item"><b>Ключевые обязанности:</b> Организация производственного контроля, проведение СОУТ, обеспечение СИЗ.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="card shadow-sm mb-4">
+                    <div class="card-header text-white d-flex align-items-center" style="background-color: #fd7e14;"><i class="bi bi-person-workspace card-header-icon"></i><h5 class="mb-0">5. Уровень Линейного руководства</h5></div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Лидерство на местах:</b> Демонстрируют лидерство и приверженность ЕСУПБ.</li>
+                           <li class="list-group-item"><b>Контроль и надзор:</b> Осуществляют административно-производственный контроль.</li>
+                           <li class="list-group-item"><b>Организация работ:</b> Руководят выполнением работ повышенной опасности, оформляют наряды-допуски.</li>
+                           <li class="list-group-item"><b>Недопуск к работе:</b> Отстраняют от работы лиц в состоянии опьянения или без СИЗ.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white d-flex align-items-center"><i class="bi bi-person-fill card-header-icon"></i><h5 class="mb-0">6. Уровень Работников</h5></div>
+                    <div class="card-body">
+                         <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Контроль бригадира:</b> Бригадир контролирует соблюдение дисциплины и применение безопасных приемов.</li>
+                           <li class="list-group-item"><b>Обязанности рабочего:</b> Знать и соблюдать инструкции, проверять исправность СИЗ, контролировать рабочее место.</li>
+                           <li class="list-group-item"><b>Информирование:</b> Немедленно извещать руководителя о любой угрозе или происшествии.</li>
+                           <li class="list-group-item"><b>Право на отказ от работы:</b> Возможность отказаться от работы в случае возникновения опасности.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Новая вкладка "Кратко" -->
+            <div class="tab-pane fade p-3" id="summary-pane" role="tabpanel" aria-labelledby="summary-tab">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white d-flex align-items-center"><i class="bi bi-card-text card-header-icon"></i><h5 class="mb-0">Краткая сводка по исполнению Политики</h5></div>
+                    <div class="card-body">
+                        <p><b>1. Высшее руководство:</b> Устанавливает стратегию. Утверждает саму Политику, выделяет все необходимые ресурсы (финансовые, кадровые) и несет конечную ответственность за безопасность.</p>
+                        <p><b>2. Представитель и Комиссия по ПБ:</b> Координируют всю работу. Представитель руководства организует внедрение системы, а Комиссия утверждает планы, отчеты и контролирует соответствие нормам.</p>
+                        <p><b>3. Уполномоченные и Структурные подразделения:</b> Отвечают за методологию и координацию. Разрабатывают правила, управляют рисками и обеспечивают информационную поддержку на всех уровнях.</p>
+                        <p><b>4. Дочерние общества и организации (ДОиО):</b> Являются ключевыми исполнителями на местах. Их руководство несет полную ответственность за функционирование системы в своих подразделениях, организует производственный контроль и обеспечивает работников СИЗ.</p>
+                        <p><b>5. Линейное руководство (мастера, начальники участков):</b> Обеспечивают безопасность непосредственно на рабочих местах. Они контролируют выполнение работ, оформляют наряды-допуски и отстраняют от работы нарушителей.</p>
+                        <p><b>6. Работники:</b> Являются основой системы. Они обязаны соблюдать все инструкции, немедленно сообщать об опасностях и имеют право отказаться от выполнения работы, если она угрожает их жизни и здоровью.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Отдельные вкладки -->
+            <div class="tab-pane fade p-3" id="top-management-pane" role="tabpanel" aria-labelledby="top-management-tab">
+                 <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white d-flex align-items-center"><i class="bi bi-people-fill card-header-icon"></i><h5 class="mb-0">1. Уровень Высшего руководства ПАО «Газпром»</h5></div>
+                    <div class="card-body">
+                        <p class="card-text">Высшее руководство (Председатель Правления) обеспечивает реализацию политики путем установления стратегического направления и предоставления ресурсов.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Определение и утверждение Политики:</b> Высшее руководство утверждает Политику ПАО «Газпром» в области ПБ.</li>
+                            <li class="list-group-item"><b>Лидерство и ответственность:</b> Принимает на себя ответственность за предотвращение происшествий и достижение целей ЕСУПБ.</li>
+                            <li class="list-group-item"><b>Обеспечение ресурсами:</b> Осуществляет руководство по обеспечению кадровыми, финансовыми, материально-техническими и другими ресурсами, необходимыми для функционирования и улучшения ЕСУПБ.</li>
+                            <li class="list-group-item"><b>Анализ и совершенствование:</b> Проводит анализ функционирования ЕСУПБ, дает ей оценку и определяет возможности для улучшения, а также необходимость внесения изменений в Политику и цели.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade p-3" id="representative-pane" role="tabpanel" aria-labelledby="representative-tab">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white d-flex align-items-center"><i class="bi bi-person-check-fill card-header-icon"></i><h5 class="mb-0">2. Уровень Представителя высшего руководства и Комиссии по ПБ</h5></div>
+                    <div class="card-body">
+                        <p class="card-text">Представитель высшего руководства (заместитель Председателя Правления) возглавляет работу в области ПБ и координирует деятельность системы.</p>
+                        <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Координация и организация:</b> Возглавляет работу по ПБ и Комиссию по ПБ ПАО «Газпром».</li>
+                           <li class="list-group-item"><b>Внедрение и совершенствование:</b> Организует разработку, внедрение и непрерывное совершенствование ЕСУПБ.</li>
+                           <li class="list-group-item"><b>Утверждение планов:</b> Утверждает цели, план корректирующих и предупреждающих действий (КиПД) и годовой отчет о функционировании ЕСУПБ.</li>
+                           <li class="list-group-item"><b>Роль Комиссии по ПБ:</b> Комиссия (управляющий орган ЕСУПБ) рассматривает и согласовывает проект годового отчета и плана КиПД, а также организует оценку соответствия нормативным требованиям.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade p-3" id="authorized-unit-pane" role="tabpanel" aria-labelledby="authorized-unit-tab">
+                 <div class="card shadow-sm">
+                    <div class="card-header bg-secondary text-white d-flex align-items-center"><i class="bi bi-diagram-3-fill card-header-icon"></i><h5 class="mb-0">3. Уровень Уполномоченного и Структурных подразделений</h5></div>
+                    <div class="card-body">
+                        <p class="card-text">Исполнение политики на этом уровне включает методологическое обеспечение, координацию и контроль.</p>
+                         <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Подразделение, уполномоченное в области ПБ:</b> Формирует, внедряет, обеспечивает функционирование и совершенствование ЕСУПБ. Координирует деятельность и является владельцем рисков.</li>
+                           <li class="list-group-item"><b>Структурные подразделения:</b> Организуют разработку программ и планов, направленных на достижение целей в области ПБ. Являются совладельцами рисков.</li>
+                           <li class="list-group-item"><b>Расследование и контроль:</b> Участвуют в расследовании происшествий и контроле выполнения корректирующих мероприятий.</li>
+                           <li class="list-group-item"><b>Информирование:</b> Все структурные подразделения обеспечивают информирование своих работников о требованиях ПБ и Ключевых правилах безопасности.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade p-3" id="doio-pane" role="tabpanel" aria-labelledby="doio-tab">
+                <div class="card shadow-sm">
+                    <div class="card-header text-white d-flex align-items-center" style="background-color: #6f42c1;"><i class="bi bi-building-gear card-header-icon"></i><h5 class="mb-0">4. Уровень Дочерних Обществ и Организаций (ДОиО)</h5></div>
+                    <div class="card-body">
+                        <p class="card-text">ДОиО являются ключевыми исполнителями Политики на производственном уровне.</p>
+                        <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Руководитель ДОиО:</b> Несет ответственность за функционирование ЕСУПБ в целом по ДОиО. Обеспечивает соблюдение всех требований ПБ.</li>
+                           <li class="list-group-item"><b>Главный инженер (Представитель руководства по ПБ):</b> Организует реализацию Политики, несет ответственность за функционирование и совершенствование ЕСУПБ в ДОиО.</li>
+                           <li class="list-group-item"><b>Структурные подразделения ДОиО:</b> Исполнение Политики реализуется через конкретные функции заместителей и руководителей отделов (ОТ, ПБ, ГМ, Транспортного и т.д.).</li>
+                           <li class="list-group-item"><b>Ключевые обязанности ДОиО:</b> Организация производственного контроля, проведение СОУТ, обеспечение укомплектованности штата, обеспечение работников СИЗ.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade p-3" id="line-management-pane" role="tabpanel" aria-labelledby="line-management-tab">
+                 <div class="card shadow-sm">
+                    <div class="card-header text-white d-flex align-items-center" style="background-color: #fd7e14;"><i class="bi bi-person-workspace card-header-icon"></i><h5 class="mb-0">5. Уровень Линейного руководства (Мастера, Специалисты)</h5></div>
+                    <div class="card-body">
+                        <p class="card-text">Линейное руководство обеспечивает непосредственное исполнение требований ПБ на рабочих местах.</p>
+                        <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Лидерство и приверженность:</b> Демонстрируют лидерство и приверженность ЕСУПБ.</li>
+                           <li class="list-group-item"><b>Контроль и надзор:</b> Осуществляют административно-производственный контроль за выполнением требований ПБ.</li>
+                           <li class="list-group-item"><b>Организация работ повышенной опасности:</b> Руководят выполнением, определяют методы и последовательность, оформляют наряды-допуски.</li>
+                           <li class="list-group-item"><b>Информирование работников:</b> Разъясняют исполнителям работ информацию об опасностях и рисках.</li>
+                           <li class="list-group-item"><b>Недопуск к работе:</b> Отстраняют от работы лиц в состоянии опьянения, не прошедших подготовку или не имеющих СИЗ.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade p-3" id="workers-pane" role="tabpanel" aria-labelledby="workers-tab">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white d-flex align-items-center"><i class="bi bi-person-fill card-header-icon"></i><h5 class="mb-0">6. Уровень Работников (Бригадир, Рабочий)</h5></div>
+                    <div class="card-body">
+                        <p class="card-text">Исполнение Политики на самом низком уровне базируется на личном участии и дисциплине.</p>
+                         <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Бригадир:</b> Контролирует соблюдение членами бригады дисциплины труда и применение безопасных приемов/методов работы.</li>
+                           <li class="list-group-item"><b>Рабочий:</b> Обязан знать и неукоснительно соблюдать требования инструкций по ОТ и ПБ. Должен проверять наличие и исправность СИЗ и контролировать состояние рабочего места.</li>
+                           <li class="list-group-item"><b>Информирование об опасностях:</b> Рабочие должны немедленно извещать руководителя о любой ситуации, угрожающей жизни и здоровью.</li>
+                           <li class="list-group-item"><b>Отказ от работы:</b> Рабочие имеют возможность отказаться от выполнения работ в случае возникновения опасности для их жизни и здоровья.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        const exportToPdf = (zoomLevel, filenameSuffix) => {
+            const activeTabPane = document.querySelector('.tab-pane.show.active');
+            const mainContainer = document.querySelector('.main-container');
+            const navTabs = document.getElementById('myTab');
+            const exportButtonsContainer = document.getElementById('export-buttons-container');
+
+            navTabs.style.display = 'none';
+            exportButtonsContainer.style.display = 'none';
+            
+            const originalTransform = mainContainer.style.transform;
+            mainContainer.style.transformOrigin = 'top left';
+            mainContainer.style.transform = `scale(${zoomLevel})`;
+            
+            const elementToPrint = activeTabPane.id === 'all-pane' ? mainContainer : activeTabPane;
+
+            const opt = {
+                margin:       [0.2, 0.2, 0.2, 0.2],
+                filename:     `policy-execution-${filenameSuffix}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 / zoomLevel, useCORS: true, logging: false },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().from(elementToPrint).set(opt).save().then(() => {
+                mainContainer.style.transform = originalTransform;
+                navTabs.style.display = '';
+                exportButtonsContainer.style.display = '';
+            });
+        };
+        
+        document.getElementById('export-btn-100').addEventListener('click', () => exportToPdf(1.0, '100'));
+        document.getElementById('export-btn-90').addEventListener('click', () => exportToPdf(0.9, '90'));
+        document.getElementById('export-btn-80').addEventListener('click', () => exportToPdf(0.8, '80'));
+        document.getElementById('print-btn').addEventListener('click', () => window.print());
+    </script>
+</body>
+</html>
+
