@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Виды и периодичность инструктажей по охране труда</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- Иконки Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .main-container {
+            max-width: 1140px;
+        }
+        .nav-tabs .nav-link {
+            color: #495057;
+            border-bottom-width: 2px;
+        }
+        .nav-tabs .nav-link.active {
+            color: #0d6efd;
+            border-color: #dee2e6 #dee2e6 #fff;
+            border-bottom: 2px solid #0d6efd;
+        }
+        .card-header-icon {
+            font-size: 1.8rem; /* Увеличен размер иконки */
+            margin-right: 1rem;
+        }
+        .card-body {
+            padding: 1.5rem; /* Добавлено больше отступов */
+        }
+        .card-text {
+            font-size: 1.1rem; /* Увеличен шрифт описания */
+            margin-bottom: 1.25rem !important;
+        }
+        .list-group-item {
+            font-size: 1.05rem; /* Увеличен шрифт в списке */
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            background-color: transparent; /* Убран фон по умолчанию для прозрачности */
+        }
+        .list-group-item b {
+            min-width: 150px; /* Скорректирована ширина для выравнивания */
+            display: inline-block;
+        }
+        /* Акцент на блоке с ключевой информацией */
+        .card-body .list-group {
+            background-color: #f0f2f5; 
+            border: 1px solid #e9ecef;
+            border-radius: .375rem;
+        }
+        
+        /* --- СТИЛИ ДЛЯ ПЕЧАТИ --- */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact; /* Для Chrome/Safari */
+                print-color-adjust: exact; /* Стандарт */
+            }
+
+            #export-buttons-container,
+            #myTab,
+            script {
+                display: none !important;
+            }
+            
+            .tab-content > .tab-pane {
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                page-break-before: always;
+            }
+             .tab-content > .tab-pane:first-child {
+                page-break-before: auto;
+            }
+
+            .main-container, .card, .list-group-item {
+                page-break-inside: avoid;
+            }
+            
+            .main-container {
+                 max-width: 100% !important;
+                 margin: 0 !important;
+                 padding: 0 !important;
+                 box-shadow: none !important;
+            }
+
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            
+            .text-primary, .text-success, .text-info, .text-danger, .text-dark {
+                color: #000 !important;
+            }
+            .card-body .list-group {
+                background-color: #f0f2f5 !important;
+            }
+        }
+        /* --- КОНЕЦ СТИЛЕЙ ДЛЯ ПЕЧАТИ --- */
+    </style>
+</head>
+<body>
+
+    <div class="container main-container mt-4 mb-5">
+        <h4 id="main-title" class="text-center mb-4">Виды и периодичность инструктажей по охране труда</h4>
+        <div id="export-buttons-container" class="text-center mb-4">
+            <button id="print-btn" class="btn btn-info text-white btn-sm"><i class="bi bi-printer me-2"></i>Печать лентой</button>
+            <button id="export-btn-100" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (100%)</button>
+            <button id="export-btn-90" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (90%)</button>
+            <button id="export-btn-80" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (80%)</button>
+        </div>
+
+        <!-- Навигационный бар с вкладками -->
+        <ul class="nav nav-tabs nav-fill mb-4" id="myTab" role="tablist">
+             <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-pane" type="button" role="tab" aria-controls="all-pane" aria-selected="true"><i class="bi bi-collection-fill me-2"></i>Все инструктажи</button>
+            </li>
+             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro-pane" type="button" role="tab" aria-controls="intro-pane" aria-selected="false"><i class="bi bi-door-open-fill me-2"></i>Вводный</button>
+            </li>
+             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="primary-tab" data-bs-toggle="tab" data-bs-target="#primary-pane" type="button" role="tab" aria-controls="primary-pane" aria-selected="false"><i class="bi bi-person-workspace me-2"></i>Первичный</button>
+            </li>
+             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="repeated-tab" data-bs-toggle="tab" data-bs-target="#repeated-pane" type="button" role="tab" aria-controls="repeated-pane" aria-selected="false"><i class="bi bi-arrow-repeat me-2"></i>Повторный</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="unscheduled-tab" data-bs-toggle="tab" data-bs-target="#unscheduled-pane" type="button" role="tab" aria-controls="unscheduled-pane" aria-selected="false"><i class="bi bi-exclamation-triangle-fill me-2"></i>Внеплановый</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="target-tab" data-bs-toggle="tab" data-bs-target="#target-pane" type="button" role="tab" aria-controls="target-pane" aria-selected="false"><i class="bi bi-bullseye me-2"></i>Целевой</button>
+            </li>
+        </ul>
+
+        <!-- Содержимое вкладок -->
+        <div class="tab-content" id="myTabContent">
+            
+            <!-- Новая вкладка: Все инструктажи -->
+            <div class="tab-pane fade show active p-3" id="all-pane" role="tabpanel" aria-labelledby="all-tab">
+                <!-- Вводный -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white d-flex align-items-center">
+                        <i class="bi bi-door-open-fill card-header-icon"></i><h5 class="mb-0">Вводный инструктаж</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b class="text-primary">С кем проводится:</b> Со всеми принимаемыми на работу, командированными, практикантами.</li>
+                            <li class="list-group-item"><b class="text-primary">Кто проводит:</b> Специалист по охране труда.</li>
+                            <li class="list-group-item"><b class="text-primary">Когда:</b> До начала работы.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Первичный -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-success text-white d-flex align-items-center">
+                        <i class="bi bi-person-workspace card-header-icon"></i><h5 class="mb-0">Первичный инструктаж</h5>
+                    </div>
+                     <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b class="text-success">С кем проводится:</b> Все работники до начала самостоятельной работы.</li>
+                            <li class="list-group-item"><b class="text-success">Кто проводит:</b> Непосредственный руководитель.</li>
+                            <li class="list-group-item"><b class="text-success">Когда:</b> Перед началом работы.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Повторный -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-info text-white d-flex align-items-center">
+                        <i class="bi bi-arrow-repeat card-header-icon"></i><h5 class="mb-0">Повторный инструктаж</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b class="text-info">С кем проводится:</b> Работники, прошедшие первичный инструктаж.</li>
+                            <li class="list-group-item"><b class="text-info">Кто проводит:</b> Непосредственный руководитель.</li>
+                            <li class="list-group-item"><b class="text-info">Периодичность:</b> Не реже 1 раза в 6 месяцев.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Внеплановый -->
+                 <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-warning text-dark d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle-fill card-header-icon"></i><h5 class="mb-0">Внеплановый инструктаж</h5>
+                    </div>
+                    <div class="card-body">
+                         <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b class="text-dark">Кто проводит:</b> Непосредственный руководитель.</li>
+                            <li class="list-group-item"><b class="text-dark">Случаи:</b> Изменение законодательства, оборудования, нарушение требований, перерывы в работе.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Целевой -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-danger text-white d-flex align-items-center">
+                         <i class="bi bi-bullseye card-header-icon"></i><h5 class="mb-0">Целевой инструктаж</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b class="text-danger">Кто проводит:</b> Непосредственный руководитель работ.</li>
+                            <li class="list-group-item"><b class="text-danger">Случаи:</b> Разовые работы, ликвидация аварий, работы по наряду-допуску, экскурсии.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Вводный инструктаж -->
+            <div class="tab-pane fade p-3" id="intro-pane" role="tabpanel" aria-labelledby="intro-tab">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white d-flex align-items-center">
+                        <i class="bi bi-door-open-fill card-header-icon"></i>
+                        <h5 class="mb-0">Вводный инструктаж по охране труда</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Проводится для ознакомления с общими правилами и требованиями охраны труда на предприятии.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b class="text-primary">С кем проводится:</b> Со всеми принимаемыми на работу, а также с командированными, практикантами и другими лицами, участвующими в производственной деятельности.</li>
+                            <li class="list-group-item"><b class="text-primary">Кто проводит:</b> Специалист по охране труда или иной уполномоченный работник.</li>
+                            <li class="list-group-item"><b class="text-primary">Когда проводится:</b> До начала выполнения трудовых функций.</li>
+                            <li class="list-group-item"><b class="text-primary">Основание:</b> Программа вводного инструктажа, утвержденная работодателем.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Первичный инструктаж -->
+            <div class="tab-pane fade p-3" id="primary-pane" role="tabpanel" aria-labelledby="primary-tab">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white d-flex align-items-center">
+                        <i class="bi bi-person-workspace card-header-icon"></i>
+                        <h5 class="mb-0">Первичный инструктаж на рабочем месте</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Необходим для ознакомления с производственными опасностями и безопасными методами работы непосредственно на рабочем месте.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b class="text-success">С кем проводится:</b> Все работники до начала самостоятельной работы, переведенные, выполняющие новую работу, командированные, практиканты.</li>
+                            <li class="list-group-item"><b class="text-success">Кто проводит:</b> Непосредственный руководитель работника.</li>
+                            <li class="list-group-item"><b class="text-success">Когда проводится:</b> Перед началом самостоятельной работы.</li>
+                            <li class="list-group-item"><b class="text-success">Основание:</b> Программы, разработанные и утвержденные в установленном порядке.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Повторный инструктаж -->
+            <div class="tab-pane fade p-3" id="repeated-pane" role="tabpanel" aria-labelledby="repeated-tab">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white d-flex align-items-center">
+                        <i class="bi bi-arrow-repeat card-header-icon"></i>
+                        <h5 class="mb-0">Повторный инструктаж</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Проводится для повторения и закрепления знаний по безопасным приемам и методам выполнения работ.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b class="text-info">С кем проводится:</b> Работники, прошедшие первичный инструктаж на рабочем месте.</li>
+                            <li class="list-group-item"><b class="text-info">Кто проводит:</b> Непосредственный руководитель работника.</li>
+                            <li class="list-group-item"><b class="text-info">Периодичность:</b> Не реже одного раза в шесть месяцев.</li>
+                             <li class="list-group-item"><b class="text-info">Основание:</b> Программы первичного инструктажа на рабочем месте.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Внеплановый инструктаж -->
+            <div class="tab-pane fade p-3" id="unscheduled-pane" role="tabpanel" aria-labelledby="unscheduled-tab">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-warning text-dark d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle-fill card-header-icon"></i>
+                        <h5 class="mb-0">Внеплановый инструктаж</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Проводится при возникновении определенных обстоятельств, требующих дополнительного информирования работников.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b class="text-dark">Кто проводит:</b> Непосредственный руководитель работника.</li>
+                            <li class="list-group-item"><b class="text-dark">Случаи проведения:</b>
+                                <ul class="mt-2">
+                                    <li>Изменение в законодательстве по охране труда.</li>
+                                    <li>Изменение технологических процессов, замена оборудования.</li>
+                                    <li>Нарушение работниками требований охраны труда.</li>
+                                    <li>Перерыв в работе более 60 календарных дней.</li>
+                                    <li>Требование должностных лиц госорганов надзора и контроля.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Целевой инструктаж -->
+            <div class="tab-pane fade p-3" id="target-pane" role="tabpanel" aria-labelledby="target-tab">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-danger text-white d-flex align-items-center">
+                         <i class="bi bi-bullseye card-header-icon"></i>
+                        <h5 class="mb-0">Целевой инструктаж</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Проводится перед выполнением работ, не связанных с прямыми должностными обязанностями работника.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b class="text-danger">Кто проводит:</b> Непосредственный руководитель работ.</li>
+                            <li class="list-group-item"><b class="text-danger">Случаи проведения:</b>
+                                 <ul class="mt-2">
+                                    <li>Выполнение разовых работ.</li>
+                                    <li>Выполнение работ по ликвидации последствий аварий, стихийных бедствий.</li>
+                                    <li>Проведение работ, на которые оформляется наряд-допуск, разрешение или другие специальные документы.</li>
+                                    <li>Проведение экскурсий на предприятии.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение библиотек для экспорта и Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        // --- КОД ДЛЯ PDF ---
+        const exportBtn100 = document.getElementById('export-btn-100');
+        const exportBtn90 = document.getElementById('export-btn-90');
+        const exportBtn80 = document.getElementById('export-btn-80');
+        const mainContainer = document.querySelector('.main-container');
+        const navTabs = document.getElementById('myTab');
+        const exportButtonsContainer = document.getElementById('export-buttons-container');
+
+        const exportToPdf = (zoomLevel, filenameSuffix) => {
+            const activeTab = document.querySelector('.tab-pane.active');
+            navTabs.style.display = 'none';
+            exportButtonsContainer.style.display = 'none';
+            
+            const originalTransform = mainContainer.style.transform;
+            mainContainer.style.transformOrigin = 'top left';
+            mainContainer.style.transform = `scale(${zoomLevel})`;
+
+            const opt = {
+                margin:       [0.2, 0.2, 0.2, 0.2],
+                filename:     `safety-briefing-${filenameSuffix}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 / zoomLevel, useCORS: true, logging: true },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // Для печати лентой показываем все вкладки
+            if (filenameSuffix === 'all-tabs') {
+                 const allTabs = document.querySelectorAll('.tab-pane');
+                 allTabs.forEach(tab => tab.classList.add('show', 'active'));
+                 html2pdf().from(mainContainer).set(opt).save().then(() => {
+                    mainContainer.style.transform = originalTransform;
+                    navTabs.style.display = '';
+                    exportButtonsContainer.style.display = '';
+                    allTabs.forEach(tab => tab.classList.remove('show', 'active'));
+                    if(activeTab) activeTab.classList.add('show', 'active');
+                });
+            } else { // Для обычного экспорта - только активная вкладка
+                html2pdf().from(activeTab).set(opt).save().then(() => {
+                    mainContainer.style.transform = originalTransform;
+                    navTabs.style.display = '';
+                    exportButtonsContainer.style.display = '';
+                });
+            }
+        };
+        
+        // Обновляем кнопки для экспорта только активной вкладки
+        exportBtn100.addEventListener('click', () => exportToPdf(1.0, '100-percent'));
+        exportBtn90.addEventListener('click', () => exportToPdf(0.9, '90-percent'));
+        exportBtn80.addEventListener('click', () => exportToPdf(0.8, '80-percent'));
+
+        // --- КОД ДЛЯ ПЕЧАТИ ЛЕНТОЙ ---
+        const printBtn = document.getElementById('print-btn');
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+    </script>
+</body>
+</html>
+
