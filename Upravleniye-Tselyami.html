@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цели в области производственной безопасности</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- Иконки Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .main-container {
+            max-width: 1140px;
+        }
+        .nav-tabs .nav-link {
+            color: #495057;
+            border-bottom-width: 2px;
+            font-size: 0.9rem;
+        }
+        .nav-tabs .nav-link.active {
+            color: #0d6efd;
+            border-color: #dee2e6 #dee2e6 #fff;
+            border-bottom: 2px solid #0d6efd;
+        }
+        .card-header-icon {
+            font-size: 1.8rem;
+            margin-right: 1rem;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .card-text, .list-group-item, #summary-pane .card-body p {
+            font-size: 1.05rem;
+        }
+        .list-group-item {
+            padding: 0.75rem 0;
+            background-color: transparent;
+            border: none;
+        }
+        .list-group-item b {
+           color: #0d6efd;
+        }
+        
+        /* --- СТИЛИ ДЛЯ ПЕЧАТИ --- */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            #export-buttons-container, #myTab, script {
+                display: none !important;
+            }
+            .tab-content > .tab-pane {
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                page-break-before: always;
+            }
+             .tab-content > .tab-pane:first-child {
+                page-break-before: auto;
+            }
+            .main-container, .card, .list-group-item {
+                page-break-inside: avoid;
+            }
+            .main-container {
+                 max-width: 100% !important;
+                 margin: 0 !important;
+                 padding: 0 !important;
+                 box-shadow: none !important;
+            }
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container main-container mt-4 mb-5">
+        <h4 id="main-title" class="text-center mb-4">Разработка, установление и корректировка целей в области ПБ</h4>
+        <div id="export-buttons-container" class="text-center mb-4">
+            <button id="print-btn" class="btn btn-info text-white btn-sm"><i class="bi bi-printer me-2"></i>Печать лентой</button>
+            <button id="export-btn-100" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (100%)</button>
+            <button id="export-btn-90" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (90%)</button>
+            <button id="export-btn-80" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (80%)</button>
+        </div>
+
+        <!-- Навигационный бар с вкладками -->
+        <ul class="nav nav-tabs nav-fill mb-4" id="myTab" role="tablist">
+             <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-pane" type="button" role="tab" aria-controls="all-pane" aria-selected="true"><i class="bi bi-collection-fill me-2"></i>Все этапы</button>
+            </li>
+             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="approval-tab" data-bs-toggle="tab" data-bs-target="#approval-pane" type="button" role="tab" aria-controls="approval-pane" aria-selected="false"><i class="bi bi-check2-circle me-2"></i>1. Утверждение</button>
+            </li>
+             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="development-tab" data-bs-toggle="tab" data-bs-target="#development-pane" type="button" role="tab" aria-controls="development-pane" aria-selected="false"><i class="bi bi-pencil-square me-2"></i>2. Разработка</button>
+            </li>
+             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="adjustment-tab" data-bs-toggle="tab" data-bs-target="#adjustment-pane" type="button" role="tab" aria-controls="adjustment-pane" aria-selected="false"><i class="bi bi-tools me-2"></i>3. Корректировка</button>
+            </li>
+        </ul>
+
+        <!-- Содержимое вкладок -->
+        <div class="tab-content" id="myTabContent">
+            
+            <!-- Сводная вкладка -->
+            <div class="tab-pane fade show active p-3" id="all-pane" role="tabpanel" aria-labelledby="all-tab">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white d-flex align-items-center"><i class="bi bi-check2-circle card-header-icon"></i><h5 class="mb-0">1. Утверждение (Высший уровень)</h5></div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Высшее руководство ПАО «Газпром»:</b> Утверждает Политику и устанавливает цели в области ПБ. Проводит анализ и определяет необходимость изменений.</li>
+                            <li class="list-group-item"><b>Представитель высшего руководства:</b> Утверждает цели, план корректирующих и предупреждающих действий (КиПД) и годовой отчет.</li>
+                            <li class="list-group-item"><b>Руководитель ДОиО:</b> Утверждает цели своего Дочернего Общества и обеспечивает их достижение.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-info text-white d-flex align-items-center"><i class="bi bi-pencil-square card-header-icon"></i><h5 class="mb-0">2. Установление и разработка</h5></div>
+                    <div class="card-body">
+                         <p>Цели в области ПБ устанавливаются на двух основных уровнях: ПАО «Газпром» (долгосрочные) и ДОиО (краткосрочные).</p>
+                        <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Основа для разработки:</b> Цели формируются с учетом законодательных требований, результатов оценки рисков и консультаций с работниками.</li>
+                           <li class="list-group-item"><b>Уполномоченное подразделение ПАО «Газпром»:</b> Разрабатывает стратегические направления, цели и задачи.</li>
+                           <li class="list-group-item"><b>Структурные подразделения ПАО «Газпром»:</b> Организуют разработку мероприятий (программ, планов) для достижения целей.</li>
+                           <li class="list-group-item"><b>Главный инженер ДОиО:</b> Организует формирование и достижение целей на уровне Дочернего Общества.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-secondary text-white d-flex align-items-center"><i class="bi bi-tools card-header-icon"></i><h5 class="mb-0">3. Корректировка и совершенствование</h5></div>
+                    <div class="card-body">
+                         <p>Корректировка целей происходит на основе анализа результатов функционирования ЕСУПБ.</p>
+                         <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Анализ Высшим руководством:</b> Проводит анализ и определяет необходимость внесения изменений в Политику и цели.</li>
+                           <li class="list-group-item"><b>Инициаторы изменений:</b> Высшее руководство, Комиссия по ПБ, структурные подразделения, руководители ДОиО, представители работников (МПО, ПО).</li>
+                           <li class="list-group-item"><b>Мониторинг и анализ на местах:</b> Достижение целей обсуждается на Комиссии по ПБ, а руководитель ДОиО ежегодно проводит анализ эффективности системы.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Отдельные вкладки -->
+            <div class="tab-pane fade p-3" id="approval-pane" role="tabpanel" aria-labelledby="approval-tab">
+                 <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white d-flex align-items-center"><i class="bi bi-check2-circle card-header-icon"></i><h5 class="mb-0">1. Утверждение (Высший уровень)</h5></div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Высшее руководство ПАО «Газпром» (Председатель Правления)</b> утверждает Политику ПАО «Газпром» в области ПБ, а также устанавливает цели в области производственной безопасности.</li>
+                            <li class="list-group-item">Высшее руководство также проводит анализ функционирования ЕСУПБ и определяет необходимость внесения изменений в ЕСУПБ, включая Политику и цели.</li>
+                            <li class="list-group-item"><b>Представитель высшего руководства ПАО «Газпром»</b> утверждает цели, план корректирующих и предупреждающих действий (КиПД) и годовой отчет о функционировании ЕСУПБ в ПАО «Газпром».</li>
+                            <li class="list-group-item"><b>Руководитель Дочернего Общества и Организации (ДОиО)</b> утверждает цели ДОиО в области производственной безопасности и обеспечивает их достижение.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade p-3" id="development-pane" role="tabpanel" aria-labelledby="development-tab">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white d-flex align-items-center"><i class="bi bi-pencil-square card-header-icon"></i><h5 class="mb-0">2. Установление и разработка (Стратегический и тактический уровни)</h5></div>
+                    <div class="card-body">
+                        <p>Цели в области ПБ устанавливаются на двух основных уровнях:</p>
+                        <ul>
+                            <li><b>ПАО «Газпром»:</b> устанавливает долгосрочные цели.</li>
+                            <li><b>ДОиО:</b> устанавливают краткосрочные цели в области ПБ.</li>
+                        </ul>
+                        <p><b>Разработка целей и планирование их достижения:</b></p>
+                        <ul class="list-group list-group-flush">
+                           <li class="list-group-item">Цели в области ПБ и планирование их достижения осуществляются в соответствии с СТО Газпром 18000.1-003.</li>
+                           <li class="list-group-item">Цели формируются с учетом: установленных законодательных и других требований, результатов оценки рисков и установленных возможностей, результатов консультирования с представителями работников.</li>
+                           <li class="list-group-item"><b>Структурные подразделения ПАО «Газпром»</b> организуют разработку мероприятий (программ), планов, направленных на достижение установленных целей.</li>
+                           <li class="list-group-item"><b>Главный инженер ДОиО</b> организует формирование целей в области ПБ ДОиО и организацию их достижения.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade p-3" id="adjustment-pane" role="tabpanel" aria-labelledby="adjustment-tab">
+                 <div class="card shadow-sm">
+                    <div class="card-header bg-secondary text-white d-flex align-items-center"><i class="bi bi-tools card-header-icon"></i><h5 class="mb-0">3. Корректировка и совершенствование</h5></div>
+                    <div class="card-body">
+                        <p>Корректировка и совершенствование целей и ЕСУПБ в целом происходит на основе анализа результатов ее функционирования:</p>
+                         <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><b>Высшее руководство ПАО «Газпром»</b> проводит анализ функционирования ЕСУПБ и определяет необходимость внесения изменений в Политику и цели.</li>
+                           <li class="list-group-item"><b>Инициаторами внесения изменений</b> в Политику (и, следовательно, в цели) могут быть: высшее руководство, Комиссия по ПБ, структурные подразделения, руководители ДОиО, а также МПО, ПО, уполномоченные по охране труда.</li>
+                           <li class="list-group-item">Мониторинг достижения целей и выполнения программ мероприятий обсуждается на <b>Комиссии по ПБ</b>.</li>
+                           <li class="list-group-item"><b>Руководитель ДОиО</b> ежегодно проводит анализ функционирования ЕСУПБ ДОиО на ее эффективность и результативность.</li>
+                           <li class="list-group-item"><b>Руководитель структурного подразделения филиала</b> вносит предложения руководителю филиала для установки целей в области производственной безопасности.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        const exportToPdf = (zoomLevel, filenameSuffix) => {
+            const activeTabPane = document.querySelector('.tab-pane.show.active');
+            const mainContainer = document.querySelector('.main-container');
+            const navTabs = document.getElementById('myTab');
+            const exportButtonsContainer = document.getElementById('export-buttons-container');
+
+            navTabs.style.display = 'none';
+            exportButtonsContainer.style.display = 'none';
+            
+            const originalTransform = mainContainer.style.transform;
+            mainContainer.style.transformOrigin = 'top left';
+            mainContainer.style.transform = `scale(${zoomLevel})`;
+            
+            const elementToPrint = activeTabPane.id === 'all-pane' ? mainContainer : activeTabPane;
+
+            const opt = {
+                margin:       [0.2, 0.2, 0.2, 0.2],
+                filename:     `safety-goals-policy-${filenameSuffix}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 / zoomLevel, useCORS: true, logging: false },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().from(elementToPrint).set(opt).save().then(() => {
+                mainContainer.style.transform = originalTransform;
+                navTabs.style.display = '';
+                exportButtonsContainer.style.display = '';
+            });
+        };
+        
+        document.getElementById('export-btn-100').addEventListener('click', () => exportToPdf(1.0, '100'));
+        document.getElementById('export-btn-90').addEventListener('click', () => exportToPdf(0.9, '90'));
+        document.getElementById('export-btn-80').addEventListener('click', () => exportToPdf(0.8, '80'));
+        document.getElementById('print-btn').addEventListener('click', () => window.print());
+    </script>
+</body>
+</html>
+
