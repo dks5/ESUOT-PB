@@ -1,0 +1,211 @@
+<!-- <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поведенческий аудит безопасности (ПАБ)</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- Иконки Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .main-container {
+            max-width: 1140px;
+        }
+        .card {
+            margin-bottom: 1.5rem;
+        }
+        .card-header h5 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+        .lead {
+            font-size: 1.4rem;
+        }
+        .card-body, .list-group-item, .table {
+             font-size: 1.25rem;
+        }
+        .list-group-item {
+            border: none;
+            padding-left: 0;
+            display: flex;
+            align-items: flex-start;
+        }
+        .list-group-item i {
+            margin-top: 8px;
+            margin-right: 15px;
+            color: #0d6efd;
+        }
+        .table th, .table td {
+             vertical-align: middle;
+        }
+
+        /* --- СТИЛИ ДЛЯ ПЕЧАТИ --- */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            #export-buttons-container, script {
+                display: none !important;
+            }
+            .main-container, .card, .list-group-item {
+                page-break-inside: avoid;
+            }
+            .main-container {
+                 max-width: 100% !important;
+                 margin: 0 !important;
+                 padding: 0 !important;
+                 box-shadow: none !important;
+            }
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            .text-primary {
+                color: #0d6efd !important;
+            }
+        }
+        /* --- КОНЕЦ СТИЛЕЙ ДЛЯ ПЕЧАТИ --- */
+    </style>
+</head>
+<body>
+
+    <div class="container main-container mt-4 mb-5">
+        <h4 id="main-title" class="text-center mb-4">Поведенческий аудит безопасности (ПАБ)</h4>
+        <div id="export-buttons-container" class="text-center mb-4">
+            <button id="print-btn" class="btn btn-info text-white btn-sm"><i class="bi bi-printer me-2"></i>Печать лентой</button>
+            <button id="export-btn-100" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (100%)</button>
+            <button id="export-btn-90" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (90%)</button>
+            <button id="export-btn-80" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (80%)</button>
+        </div>
+
+        <div class="p-3">
+            <p class="lead text-center mb-5">Поведенческий аудит безопасности (ПАБ) — это специальный вид аудита, который сосредоточен на наблюдении за рабочим процессом и последующем взаимодействии с работниками. ПАБ был разработан в развитие комплекса документов ПАО «Газпром» «Единая система управления производственной безопасностью (ЕСУПБ)» с целью обеспечения единства подходов к порядку его проведения.</p>
+            
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5><i class="bi bi-journal-text me-2"></i>Сущность и определение ПАБ</h5>
+                </div>
+                <div class="card-body">
+                    <p>ПАБ — это вид аудита, направленный на выявление, предупреждение и предотвращение опасных действий и опасных условий, который основан на:</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="bi bi-check-circle-fill"></i><div><b>Наблюдении</b> за действиями конкретного работника (или группой работников) во время выполнения ими производственного задания.</div></li>
+                        <li class="list-group-item"><i class="bi bi-check-circle-fill"></i><div><b>Оценке</b> условий выполнения работником производственного задания.</div></li>
+                        <li class="list-group-item"><i class="bi bi-check-circle-fill"></i><div><b>Последующей беседе</b> (диалоге) между работником (работниками) и аудитором.</div></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5><i class="bi bi-bullseye me-2"></i>Цели и задачи ПАБ</h5>
+                </div>
+                 <div class="card-body">
+                    <p>ПАБ является инструментом реализации Политики ПАО «Газпром» в области производственной безопасности и служит для достижения ряда целей:</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Категория</th>
+                                    <th>Цель / Задача</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Предотвращение</b></td>
+                                    <td>Предотвращение производственного травматизма, аварий, инцидентов, пожаров и профессиональных заболеваний.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Культура и мотивация</b></td>
+                                    <td>Повышение уровня культуры производственной безопасности. Мотивация работника на безопасный труд и на соблюдение требований производственной безопасности.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Информация</b></td>
+                                    <td>Формирование объективной информации о состоянии объектов в области производственной безопасности. Повышение информированности персонала.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Совершенствование</b></td>
+                                    <td>Выявление направления совершенствования ЕСУПБ. Усиление мотивации и приверженности вопросам безопасности за счет разъяснения последствий опасного поведения.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5><i class="bi bi-list-check me-2"></i>Порядок и особенности проведения</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="bi bi-person-check-fill"></i><div><b>Кто проводит:</b> ПАБ должен проводиться обученными аудиторами. Периодичность зависит от должности (например, линейными руководителями — не реже четырех раз в месяц).</div></li>
+                        <li class="list-group-item"><i class="bi bi-people-fill"></i><div><b>Кто подлежит аудиту:</b> Все работники ПАО «Газпром», его дочерних обществ, а также работники сторонних организаций на объектах компании.</div></li>
+                        <li class="list-group-item"><i class="bi bi-diagram-3-fill"></i><div><b>Ключевые этапы:</b> Планирование, наблюдение за работниками и обязательная беседа (диалог).</div></li>
+                        <li class="list-group-item"><i class="bi bi-eye-fill"></i><div><b>Категории наблюдения:</b> «Реакция работника», «Действия работника», «Спецодежда и СИЗ», «Инструмент и оборудование», «Инструкции и правила», «Рабочее место», «Транспорт».</div></li>
+                        <li class="list-group-item"><i class="bi bi-exclamation-triangle-fill"></i><div><b>Действия аудитора при обнаружении опасности:</b> Если есть угроза жизни, аудитор должен немедленно остановить работы. Если действия небезопасны, аудитор должен обсудить это с работником и добиться согласия работать безопасно.</div></li>
+                         <li class="list-group-item"><i class="bi bi-file-earmark-text-fill"></i><div><b>Отчетность:</b> По результатам составляется отчет без указания фамилий работников (за исключением случаев, требующих немедленной остановки работ).</div></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading"><i class="bi bi-shield-fill-exclamation me-2"></i>Важное правило!</h4>
+                <p class="mb-0" style="font-size: 1.25rem;">По результатам ПАБ <strong>не допускается наказывать</strong> работников.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Подключение библиотек для экспорта и Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        // --- КОД ДЛЯ PDF ---
+        const exportBtn100 = document.getElementById('export-btn-100');
+        const exportBtn90 = document.getElementById('export-btn-90');
+        const exportBtn80 = document.getElementById('export-btn-80');
+        const mainContainer = document.querySelector('.main-container');
+        const exportButtonsContainer = document.getElementById('export-buttons-container');
+
+        const exportToPdf = (zoomLevel, filenameSuffix) => {
+            exportButtonsContainer.style.display = 'none';
+            
+            const originalTransform = mainContainer.style.transform;
+            mainContainer.style.transformOrigin = 'top left';
+            mainContainer.style.transform = `scale(${zoomLevel})`;
+
+            const opt = {
+                margin:       [0.1, 0.1, 0.1, 0.1],
+                filename:     `behavioral-safety-audit-${filenameSuffix}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 / zoomLevel, useCORS: true, logging: false },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().from(mainContainer).set(opt).save().then(() => {
+                mainContainer.style.transform = originalTransform;
+                exportButtonsContainer.style.display = '';
+            });
+        };
+
+        exportBtn100.addEventListener('click', () => exportToPdf(1.0, '100-percent'));
+        exportBtn90.addEventListener('click', () => exportToPdf(0.9, '90-percent'));
+        exportBtn80.addEventListener('click', () => exportToPdf(0.8, '80-percent'));
+
+        // --- КОД ДЛЯ ПЕЧАТИ ЛЕНТОЙ ---
+        const printBtn = document.getElementById('print-btn');
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+    </script>
+</body>
+</html>
+
