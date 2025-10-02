@@ -28,7 +28,7 @@
         /* Стиль для контейнера с буквой */
         .letter-box {
             display: inline-flex;
-            align-items-center;
+            align-items: center;
             justify-content: center;
             width: 60px;
             height: 40px;
@@ -49,16 +49,8 @@
         .flowchart-wrapper {
             position: relative;
             width: 100%;
-            height: 950px; /* Высота контейнера для схемы */
+            height: 1900px; /* Скорректированная высота */
             margin: auto;
-        }
-        .flowchart-svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Позволяет кликать "сквозь" SVG */
         }
         #flowchart-nodes {
             position: relative;
@@ -67,29 +59,83 @@
         }
         .flowchart-box {
             position: absolute;
-            border: 2px solid #000;
+            border: 2px solid #6c757d;
             background-color: #fff;
-            padding: 8px;
-            text-align: center;
-            font-size: 12px;
+            padding: 15px;
+            font-size: 15px; /* Увеличен основной шрифт */
             box-shadow: 3px 3px 6px rgba(0,0,0,0.15);
             z-index: 1;
             display: flex;
-            align-items-center;
-            justify-content: center;
-            border-radius: .25rem;
-            flex-direction: column; /* Для размещения текста в несколько строк */
+            flex-direction: column;
+            border-radius: .375rem;
         }
+        .flowchart-box .title-block {
+            background-color: #f8f9fa;
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+            margin-bottom: 12px;
+            text-align: center;
+            width: 100%;
+        }
+        .flowchart-box .title-block h5 {
+            margin-bottom: 5px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+        .flowchart-box .level-badge {
+            display: inline-block;
+            padding: .4em .6em;
+            font-size: .8em;
+            font-weight: 500;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: normal; /* Allow wrapping */
+            vertical-align: baseline;
+            border-radius: .25rem;
+        }
+        .flowchart-box .desc {
+            font-size: 15px;
+            margin: 0;
+            line-height: 1.5;
+        }
+        .flowchart-box .key-func-block {
+            background-color: #e7f5ff;
+            border: 1px solid #b3d7ff;
+            padding: 8px 12px;
+            border-radius: .25rem;
+            margin-top: 12px;
+            width: 100%;
+        }
+        .flowchart-box .key-func-block p {
+            margin-bottom: 0;
+            font-size: 15px;
+        }
+
         /* Позиционирование каждого блока */
-        #node1 { top: 0; left: 50%; transform: translateX(-50%); width: 30%; min-height: 65px;}
-        #node2 { top: 12%; left: 50%; transform: translateX(-50%); width: 45%; min-height: 65px;}
-        #node3 { top: 24%; left: 50%; transform: translateX(-50%); width: 95%; min-height: 65px;}
-        #node4 { top: 38%; left: 15%; transform: translateX(-50%); width: 25%; min-height: 90px;}
-        #node5 { top: 38%; left: 50%; transform: translateX(-50%); width: 30%; min-height: 105px;}
-        #node6 { top: 38%; left: 85%; transform: translateX(-50%); width: 25%; min-height: 120px;}
-        #node7 { top: 60%; left: 35%; transform: translateX(-50%); width: 30%; min-height: 75px;}
-        #node8 { top: 78%; left: 50%; transform: translateX(-50%); width: 95%; min-height: 65px;}
-        #node9 { top: 90%; left: 50%; transform: translateX(-50%); width: 95%; min-height: 50px;}
+        #node1 { top: 0%; left: 50%; transform: translateX(-50%); width: 60%; min-height: 220px;}
+        #node2 { top: 13%; left: 50%; transform: translateX(-50%); width: 60%; min-height: 230px;}
+        #node3 { top: 27%; left: 50%; transform: translateX(-50%); width: 95%; min-height: 200px;}
+        #node4 { top: 40%; left: 8%; transform: translateX(-50%); width: 14%; min-height: 100px; justify-content: center; align-items: center; text-align: center; font-size: 16px; font-weight: bold;}
+        #node5 { top: 40%; left: 39.5%; transform: translateX(-50%); width: 47%; min-height: 240px;}
+        #node6 { 
+            top: 40%; left: 81.5%; transform: translateX(-50%); width: 35%; min-height: 260px;
+        }
+        #node6 .title-block {
+            background-color: #6c757d; /* Темно-серый фон */
+            border-color: #495057;
+        }
+        #node6 .title-block h5 {
+            color: #ffc107; /* Желтый цвет для заголовка */
+        }
+        #node6 .title-block .level-badge {
+             background-color: #ffc107 !important; /* Желтый фон для бейджа */
+             color: #212529 !important; /* Темный текст для бейджа */
+        }
+        #node7 { top: 56%; left: 39.5%; transform: translateX(-50%); width: 47%; min-height: 220px;}
+        #node8 { top: 70%; left: 50%; transform: translateX(-50%); width: 95%; min-height: 240px;}
+        #node9 { top: 85%; left: 50%; transform: translateX(-50%); width: 95%; min-height: 80px; justify-content: center; align-items: center; text-align: center; font-size: 16px; font-weight: bold;}
         
 
         /* --- Обновленные стили для пирамиды --- */
@@ -191,10 +237,6 @@
 
             .text-primary {
                 color: #0d6efd !important;
-            }
-
-            .flowchart-svg {
-                display: none; /* Скрываем SVG при печати, т.к. линии могут не отображаться корректно */
             }
         }
         /* --- КОНЕЦ СТИЛЕЙ ДЛЯ ПЕЧАТИ --- */
@@ -635,16 +677,78 @@
             <div class="tab-pane fade p-4" id="schema-pane" role="tabpanel" aria-labelledby="schema-tab">
                 <h5 class="text-center mb-4">Схема структуры Единой системы управления производственной безопасностью</h5>
                 <div class="flowchart-wrapper">
-                    <svg id="flowchart-svg" class="flowchart-svg"></svg>
                     <div id="flowchart-nodes">
-                        <div class="flowchart-box" id="node1"><div>Высшее руководство –<br>Председатель Правления</div><small class="text-primary fw-bold mt-1">Стратегический уровень</small></div>
-                        <div class="flowchart-box" id="node2"><div>Представитель высшего руководства по ПБ –<br>заместитель Председателя Правления</div><small class="text-info fw-bold mt-1">Исполнительно-стратегический</small></div>
-                        <div class="flowchart-box" id="node3"><div>Комиссия по ПБ</div><small class="text-secondary fw-bold mt-1">Управляющий / Коллегиальный</small></div>
+                        <div class="flowchart-box" id="node1">
+                            <div class="title-block">
+                               <h5 style="color: #0d6efd;">Высшее руководство – Председатель Правления</h5>
+                               <span class="level-badge" style="background-color: #0d6efd; color: white;">Стратегический уровень: Принятие решений</span>
+                            </div>
+                            <p class="desc">Высшее руководство является единственным органом, утверждающим Политику и окончательно определяющим ресурсы для функционирования ЕСУПБ.</p>
+                             <div class="key-func-block">
+                                <p class="key-func"><b>Ключевая функция:</b> Определение Политики и обеспечение ресурсами.</p>
+                            </div>
+                        </div>
+                        <div class="flowchart-box" id="node2">
+                             <div class="title-block">
+                                <h5 style="color: #0dcaf0;">Представитель высшего руководства по ПБ – заместитель Председателя Правления</h5>
+                                <span class="level-badge" style="background-color: #0dcaf0; color: white;">Исполнительно-стратегический уровень: Реализация стратегии</span>
+                            </div>
+                            <p class="desc">Является ключевым исполнителем, реализующим стратегические решения Высшего руководства, и утверждающим основные годовые планы и отчеты.</p>
+                             <div class="key-func-block">
+                                <p class="key-func"><b>Ключевая функция:</b> Утверждение целей, планов и отчетов, организация совершенствования ЕСУПБ.</p>
+                            </div>
+                        </div>
+                        <div class="flowchart-box" id="node3">
+                             <div class="title-block">
+                                 <h5 style="color: #6c757d;">Комиссия по ПБ</h5>
+                                 <span class="level-badge" style="background-color: #6c757d; color: white;">Управляющий / Коллегиальный уровень: Оценка и развитие системы</span>
+                             </div>
+                             <p class="desc">Осуществляет коллегиальный контроль через анализ отчетов и оценку соответствия деятельности компании нормативным требованиям.</p>
+                             <div class="key-func-block">
+                                 <p class="key-func"><b>Ключевая функция:</b> Рассмотрение и согласование годового отчета и плана КиПД.</p>
+                             </div>
+                        </div>
                         <div class="flowchart-box" id="node4">Структурные<br>подразделения</div>
-                        <div class="flowchart-box" id="node5"><div>Подразделение ПАО «Газпром»,<br>уполномоченное в области ПБ</div><small class="text-success fw-bold mt-1">Методический и Координирующий</small></div>
-                        <div class="flowchart-box" id="node6"><div>Межрегиональная профессиональная<br>организация «Газпром профсоюз»,<br>ПО, уполномоченные по охране труда</div><small class="text-warning fw-bold mt-1">Представительский и Консультативный</small></div>
-                        <div class="flowchart-box" id="node7"><div>Инспекционные<br>контрольные органы</div><small class="text-danger fw-bold mt-1">Контрольно-надзорный</small></div>
-                        <div class="flowchart-box" id="node8"><div>Высшее руководство ДОиО –<br>руководитель ДОиО</div><small class="fw-bold mt-1" style="color: #6f42c1;">Локальный стратегический</small></div>
+                        <div class="flowchart-box" id="node5">
+                            <div class="title-block">
+                                <h5 style="color: #198754;">Подразделение ПАО «Газпром», уполномоченное в области ПБ</h5>
+                                <span class="level-badge" style="background-color: #198754; color: white;">Методический и Координирующий центр: Координация и Методология</span>
+                            </div>
+                            <p class="desc">Выполняет функцию "мозгового центра" системы. Координирует работу других структур, разрабатывает стратегические направления и выступает владельцем рисков.</p>
+                            <div class="key-func-block">
+                                <p class="key-func"><b>Ключевая функция:</b> Формирование, внедрение и методическое обеспечение ЕСУПБ.</p>
+                            </div>
+                        </div>
+                        <div class="flowchart-box" id="node6">
+                             <div class="title-block">
+                                 <h5>Межрегиональная профессиональная организация «Газпром профсоюз», ПО, уполномоченные по охране труда</h5>
+                                 <span class="level-badge">Представительский и Консультативный уровень: Независимый надзор</span>
+                             </div>
+                             <p class="desc">Осуществляет независимый надзор от имени работников, обеспечивая их права и интересы. Роль носит в основном консультативный и инициативный характер.</p>
+                             <div class="key-func-block">
+                                 <p class="key-func"><b>Ключевая функция:</b> Общественный контроль, консультирование и выдвижение предложений от имени работников.</p>
+                             </div>
+                        </div>
+                        <div class="flowchart-box" id="node7">
+                            <div class="title-block">
+                                <h5 style="color: #dc3545;">Инспекционные контрольные органы</h5>
+                                <span class="level-badge" style="background-color: #dc3545; color: white;">Контрольно-надзорный уровень: Оперативный надзор и аудит</span>
+                            </div>
+                            <p class="desc">Осуществляют оперативный и обязательный корпоративный надзор (фактические проверки, предписания, учет происшествий).</p>
+                             <div class="key-func-block">
+                                <p class="key-func"><b>Ключевая функция:</b> Выдача обязательных предписаний и экспертиза документов.</p>
+                            </div>
+                        </div>
+                        <div class="flowchart-box" id="node8">
+                            <div class="title-block">
+                                <h5 style="color: #6f42c1;">Высшее руководство ДОиО – руководитель ДОиО</h5>
+                                <span class="level-badge" style="background-color: #6f42c1; color: white;">Локальный стратегический уровень: Полная ответственность и руководство</span>
+                            </div>
+                            <p class="desc">Руководитель ДОиО несет полную ответственность за функционирование ЕСУПБ в своем подразделении, обеспечивая соблюдение всех требований, предоставляя ресурсы и демонстрируя лидерство.</p>
+                            <div class="key-func-block">
+                                <p class="key-func"><b>Ключевая функция:</b> Обеспечение функционирования ЕСУПБ на уровне ДОиО и управление рисками.</p>
+                            </div>
+                        </div>
                         <div class="flowchart-box" id="node9">Представитель руководства<br>по ПБ ДОиО</div>
                     </div>
                 </div>
@@ -697,111 +801,6 @@
         printBtn.addEventListener('click', () => {
             window.print();
         });
-
-        // --- КОД ДЛЯ РИСОВАНИЯ БЛОК-СХЕМЫ ---
-        function drawFlowchartLines() {
-            const svg = document.getElementById('flowchart-svg');
-            if (!svg) return;
-            svg.innerHTML = ''; // Очищаем предыдущие линии
-
-            // Определяем маркеры для стрелок
-            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-            defs.innerHTML = `
-                <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
-                </marker>
-                <marker id="arrow-start" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                   <path d="M 10 0 L 0 5 L 10 10 z" fill="#333" />
-                </marker>
-            `;
-            svg.appendChild(defs);
-
-            const nodeContainer = document.getElementById('flowchart-nodes');
-            const containerRect = nodeContainer.getBoundingClientRect();
-
-            // Функция для получения координат точки крепления
-            function getAttachPoint(element, side) {
-                const rect = element.getBoundingClientRect();
-                const x = rect.left - containerRect.left;
-                const y = rect.top - containerRect.top;
-                const width = rect.width;
-                const height = rect.height;
-
-                switch (side) {
-                    case 'top':    return { x: x + width / 2, y: y };
-                    case 'bottom': return { x: x + width / 2, y: y + height };
-                    case 'left':   return { x: x, y: y + height / 2 };
-                    case 'right':  return { x: x + width, y: y + height / 2 };
-                    default:       return { x: x + width / 2, y: y + height };
-                }
-            }
-
-            // Функция для создания линии
-            function createPolyline(points, markers) {
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-                const pointsAttr = points.map(p => `${p.x},${p.y}`).join(' ');
-                line.setAttribute('points', pointsAttr);
-                line.setAttribute('stroke', '#333');
-                line.setAttribute('stroke-width', '2');
-                line.setAttribute('fill', 'none');
-                if (markers.start) line.setAttribute('marker-start', 'url(#arrow-start)');
-                if (markers.end) line.setAttribute('marker-end', 'url(#arrow)');
-                svg.appendChild(line);
-            }
-            
-            // Функция для отрисовки соединения
-            const drawConnection = (fromId, toId, fromSide = 'bottom', toSide = 'top', startArrow = false, endArrow = true) => {
-                const fromEl = document.getElementById(fromId);
-                const toEl = document.getElementById(toId);
-                if (!fromEl || !toEl) return;
-
-                const p1 = getAttachPoint(fromEl, fromSide);
-                const p2 = getAttachPoint(toEl, toSide);
-                
-                let points = [];
-
-                if (fromSide === 'left' || fromSide === 'right') {
-                    const midX = p1.x + (p2.x - p1.x) / 2;
-                    points = [p1, {x: midX, y: p1.y}, {x: midX, y: p2.y}, p2];
-                } else {
-                    const midY = p1.y + (p2.y - p1.y) / 2;
-                    points = [p1, {x: p1.x, y: midY}, {x: p2.x, y: midY}, p2];
-                }
-                
-                createPolyline(points, { start: startArrow, end: endArrow });
-            };
-            
-            // Отрисовка всех соединений
-            drawConnection('node1', 'node2');
-            drawConnection('node2', 'node3');
-
-            drawConnection('node3', 'node4');
-            drawConnection('node3', 'node5');
-            drawConnection('node3', 'node6');
-
-            drawConnection('node4', 'node5', 'right', 'left', true, true);
-            drawConnection('node5', 'node6', 'right', 'left', true, true);
-            
-            drawConnection('node4', 'node7');
-            drawConnection('node5', 'node7');
-            drawConnection('node7', 'node4', 'top', 'bottom', true, false);
-            drawConnection('node7', 'node5', 'top', 'bottom', true, false);
-
-            drawConnection('node5', 'node8');
-            drawConnection('node6', 'node8');
-
-            drawConnection('node8', 'node9');
-        }
-        
-        // Перерисовываем при загрузке, изменении размера окна и переключении вкладок
-        window.addEventListener('load', drawFlowchartLines);
-        window.addEventListener('resize', drawFlowchartLines);
-        
-        const schemaTab = document.getElementById('schema-tab');
-        if(schemaTab) {
-            schemaTab.addEventListener('shown.bs.tab', drawFlowchartLines);
-        }
-
     </script>
 </body>
 </html>
