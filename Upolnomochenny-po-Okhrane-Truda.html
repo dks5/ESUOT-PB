@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Уполномоченный по охране труда в ЕСУПБ</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- Иконки Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .main-container {
+            max-width: 1140px;
+        }
+        .card {
+            margin-bottom: 1.5rem;
+        }
+        .card-header h5 {
+            font-size: 1.5rem;
+        }
+        .lead {
+            font-size: 1.4rem;
+        }
+        .list-group-item {
+            border: none;
+            padding-left: 0;
+            display: flex;
+            align-items: flex-start;
+            font-size: 1.25rem; /* Увеличен шрифт */
+        }
+        .list-group-item i {
+            margin-top: 8px; /* Скорректирован отступ для иконки */
+            margin-right: 15px;
+            color: #0d6efd;
+        }
+
+        /* --- СТИЛИ ДЛЯ ПЕЧАТИ --- */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact; /* Для Chrome/Safari */
+                print-color-adjust: exact; /* Стандарт */
+            }
+
+            /* Скрываем ненужные элементы при печати */
+            #export-buttons-container,
+            script {
+                display: none !important;
+            }
+
+            /* Убираем разрывы страниц внутри элементов и сбрасываем тени/отступы */
+            .main-container, .card, .list-group-item {
+                page-break-inside: avoid;
+            }
+            
+            .main-container {
+                 max-width: 100% !important;
+                 margin: 0 !important;
+                 padding: 0 !important;
+                 box-shadow: none !important;
+            }
+
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            
+            .text-primary {
+                color: #0d6efd !important;
+            }
+        }
+        /* --- КОНЕЦ СТИЛЕЙ ДЛЯ ПЕЧАТИ --- */
+    </style>
+</head>
+<body>
+
+    <div class="container main-container mt-4 mb-5">
+        <h4 id="main-title" class="text-center mb-4">Роль уполномоченного по охране труда в ЕСУПБ</h4>
+        <div id="export-buttons-container" class="text-center mb-4">
+            <button id="print-btn" class="btn btn-info text-white btn-sm"><i class="bi bi-printer me-2"></i>Печать лентой</button>
+            <button id="export-btn-100" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (100%)</button>
+            <button id="export-btn-90" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (90%)</button>
+            <button id="export-btn-80" class="btn btn-secondary btn-sm"><i class="bi bi-file-earmark-pdf me-2"></i>Экспорт в PDF (80%)</button>
+        </div>
+
+        <div class="p-3">
+            <p class="lead text-center mb-5">Уполномоченный по охране труда является одним из ключевых участников Единой системы управления производственной безопасностью (ЕСУПБ) ПАО «Газпром» и его дочерних обществ. Ниже представлены основные сведения о роли и функциях уполномоченных по охране труда.</p>
+            
+            <div class="alert alert-info" role="alert">
+                <p class="mb-0" style="font-size: 1.25rem;"><strong>Примечание:</strong> Уполномоченный по охране труда (УОТ) — это представитель работников, избранный своим трудовым коллективом для выполнения общественной функции контроля и консультирования по вопросам безопасности. Его основная задача — обеспечить соблюдение требований и интересов работников в области производственной безопасности (ПБ) внутри организации.</p>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-people-fill me-2"></i>Участие в ЕСУПБ и Представительство Работников</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>Уполномоченные по охране труда (наряду с МПО и ПО) входят в число участников ЕСУПБ.</div>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>Они представляют интересы работников в области производственной безопасности (ПБ).</div>
+                        </li>
+                         <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>Принцип функционирования ЕСУПБ включает обеспечение участия работников МПО, ПО и/или их уполномоченных представителей по охране труда.</div>
+                        </li>
+                         <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>Консультация с работниками и их представителями (включая уполномоченных) по вопросам ПБ должна происходить до принятия решения.</div>
+                        </li>
+                         <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>Они также относятся к заинтересованным сторонам, оказывающим влияние на деятельность организации.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="bi bi-lightbulb-fill me-2"></i>Функции по Консультированию и Улучшению</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>Являются частью процесса консультирования и участия работников в разработке, поддержании и совершенствовании ЕСУПБ.</div>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>
+                                Работники через уполномоченных могут вносить предложения по ряду вопросов:
+                                <ul class="mt-2">
+                                    <li>О безопасных методах работы и необходимых мерах по улучшению условий труда.</li>
+                                    <li>Об определении целей в области ПБ и планировании мероприятий по их достижению.</li>
+                                    <li>Об определении показателей мониторинга и оценки в области ПБ.</li>
+                                    <li>Об определении направлений по совершенствованию деятельности в области ПБ.</li>
+                                </ul>
+                            </div>
+                        </li>
+                         <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>Могут быть инициаторами внесения изменений в Политику ПАО «Газпром».</div>
+                        </li>
+                         <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>Их информируют о результатах анализа ЕСУПБ руководители структурных подразделений.</div>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>Участвуют в процессе непрерывного совершенствования ЕСУПБ.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="bi bi-search me-2"></i>Контрольная Функция</h5>
+                </div>
+                <div class="card-body">
+                     <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>Осуществляют общественный (профсоюзный) контроль за соблюдением требований ПБ в соответствии с законодательством и Коллективным договором.</div>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>Руководители обязаны доводить до работников информацию о том, кто является их уполномоченными в вопросах охраны труда.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Подключение библиотек для экспорта и Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        // --- КОД ДЛЯ PDF ---
+        const exportBtn100 = document.getElementById('export-btn-100');
+        const exportBtn90 = document.getElementById('export-btn-90');
+        const exportBtn80 = document.getElementById('export-btn-80');
+        const mainContainer = document.querySelector('.main-container');
+        const exportButtonsContainer = document.getElementById('export-buttons-container');
+
+        const exportToPdf = (zoomLevel, filenameSuffix) => {
+            exportButtonsContainer.style.display = 'none';
+            
+            const originalTransform = mainContainer.style.transform;
+            mainContainer.style.transformOrigin = 'top left';
+            mainContainer.style.transform = `scale(${zoomLevel})`;
+
+            const opt = {
+                margin:       [0.1, 0.1, 0.1, 0.1],
+                filename:     `authorized-person-osh-${filenameSuffix}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 / zoomLevel, useCORS: true, logging: false },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().from(mainContainer).set(opt).save().then(() => {
+                mainContainer.style.transform = originalTransform;
+                exportButtonsContainer.style.display = '';
+            });
+        };
+
+        exportBtn100.addEventListener('click', () => exportToPdf(1.0, '100-percent'));
+        exportBtn90.addEventListener('click', () => exportToPdf(0.9, '90-percent'));
+        exportBtn80.addEventListener('click', () => exportToPdf(0.8, '80-percent'));
+
+        // --- КОД ДЛЯ ПЕЧАТИ ЛЕНТОЙ ---
+        const printBtn = document.getElementById('print-btn');
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+    </script>
+</body>
+</html>
+
+
+
+
